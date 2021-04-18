@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<fx:root closable="false" text="Table Form" type="Tab" xmlns="http://javafx.com/javafx/8.0.241" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <TitledPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" text="Table Form">
+         <content>
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0">
+               <children>
+                  <Label text="Name:" />
+                  <TextField fx:id="textTableName" />
+                  <Label text="Column:" />
+                  <HBox alignment="CENTER_LEFT" spacing="10.0">
+                     <children>
+                        <Label text="Name" />
+                        <TextField fx:id="textColumnName" />
+                        <Label text="Datatype" />
+                        <TextField fx:id="textColumnDatatype" />
+                        <Label text="Sql Type" />
+                        <ComboBox fx:id="comboSqlType" prefWidth="150.0" />
+                        <CheckBox fx:id="checkNullable" mnemonicParsing="false" text="Nullable" />
+                        <CheckBox fx:id="checkIsPrimaryKey" mnemonicParsing="false" text="Is Primary Key" />
+                        <Button mnemonicParsing="false" onAction="#onButtonColumnAddAction" prefHeight="25.0" prefWidth="76.0" text="Add" />
+                     </children>
+                  </HBox>
+                  <ListView fx:id="listViewColumn" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                     <contextMenu>
+                        <ContextMenu>
+                          <items>
+                            <MenuItem mnemonicParsing="false" text="Delete" onAction="#onMenuItemDelecteAction"/>
+                              <MenuItem mnemonicParsing="false" text="Up" onAction="#onMenuItemUpAction"/>
+                              <MenuItem mnemonicParsing="false" text="Down" onAction="#onMenuItemDownAction"/>
+                          </items>
+                        </ContextMenu>
+                     </contextMenu>
+                  </ListView>
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onButtonCreateTableAction" text="Create Table" />
+               </children>
+            </VBox>
+         </content>
+      </TitledPane>
+   </content>
+</fx:root>
