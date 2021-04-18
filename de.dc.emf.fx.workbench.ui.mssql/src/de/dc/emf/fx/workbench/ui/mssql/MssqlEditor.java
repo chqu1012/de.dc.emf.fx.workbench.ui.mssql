@@ -1,14 +1,93 @@
 package de.dc.emf.fx.workbench.ui.mssql;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
+import javax.inject.Inject;
+
+import org.apache.commons.io.FileUtils;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
+import com.google.common.eventbus.Subscribe;
+
+import de.dc.emf.fx.workbench.jmetro.core.event.EventContext;
+import de.dc.emf.fx.workbench.jmetro.core.event.EventTopic;
+import de.dc.emf.fx.workbench.jmetro.core.event.IEventBroker;
 import de.dc.emf.fx.workbench.jmetro.ui.SimpleEmfEditor;
 import de.dc.emf.fx.workbench.ui.mssql.provider.MssqlItemProviderAdapterFactory;
+import de.dc.emf.fx.workbench.ui.mssql.template.IGenerator;
+import de.dc.emf.fx.workbench.ui.mssql.template.TableTemplates;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SeparatorMenuItem;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
-public class MssqlEditor extends SimpleEmfEditor<MssqlManager>{
+public class MssqlEditor extends SimpleEmfEditor<MssqlManager> {
+
+	private Menu menu = new Menu("Generation");
+
+	@Inject
+	IEventBroker eventBroker;
+
+	public MssqlEditor() {
+		createMenuItem(menu);
+		eventBroker.register(this);
+	}
+
+	@Subscribe
+	public void subscribeOnTreeSelectionChanged(EventContext<Object> context) {
+		if (context.match(EventTopic.EMF_MODEL_TREE_CLICK)) {
+			Object input = context.getInput();
+			menu.getItems().clear();
+			if (input instanceof Table) {
+				Table table = (Table) input;
+				for (TableTemplates tpl : TableTemplates.values()) {
+					MenuItem item = new MenuItem(tpl.name());
+					item.setOnAction(e -> {
+						IGenerator<Table> generator = tpl.getGenerator();
+						String content = generator.gen(table);
+						
+						FileChooser fc = new FileChooser();
+						fc.setInitialFileName(generator.name(table));
+						File file = fc.showSaveDialog(new Stage());
+						if (file != null) {
+							try {
+								FileUtils.write(file, content, StandardCharsets.UTF_8);
+							} catch (IOException e1) {
+								e1.printStackTrace();
+							}
+						}
+					});
+					menu.getItems().add(item);
+				}
+				menu.getItems().add(new SeparatorMenuItem());
+				MenuItem itemGenerateAll = new MenuItem("Generate All");
+				itemGenerateAll.setOnAction(e->{
+					DirectoryChooser dc = new DirectoryChooser();
+					File file = dc.showDialog(new Stage());
+					if (file != null) {
+						for (TableTemplates tpl : TableTemplates.values()) {
+							IGenerator<Table> generator = tpl.getGenerator();
+							String content = generator.gen(table);
+							try {
+								FileUtils.write(new File(file.getAbsolutePath()+"/"+generator.name(table)), content, StandardCharsets.UTF_8);
+							} catch (IOException e1) {
+								e1.printStackTrace();
+							}
+						}
+					}
+				});
+				menu.getItems().add(itemGenerateAll);
+				
+			}
+		}
+	}
 
 	@Override
 	protected AdapterFactory getModelItemProviderAdapterFactory() {

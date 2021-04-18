@@ -5,6 +5,8 @@ import de.dc.emf.fx.workbench.ui.mssql.template.IGenerator
 
 class BulkInsertMappingTemplate implements IGenerator<Table>{
 	
+	override name(Table input)'''«input.name»Mapping.java'''
+	
 	override gen(Table input)'''
 	import de.bytefish.jsqlserverbulkinsert.mapping.AbstractMapping;
 	

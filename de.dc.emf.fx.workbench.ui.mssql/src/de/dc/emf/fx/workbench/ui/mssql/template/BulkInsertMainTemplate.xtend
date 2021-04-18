@@ -5,6 +5,8 @@ import de.dc.emf.fx.workbench.ui.mssql.Table
 
 class BulkInsertMainTemplate implements IGenerator<Table>{
 	
+	override name(Table input)'''«input.name»BulkInsertApp.java'''
+	
 	override gen(Table input)'''
 	import java.sql.Connection;
 	import java.sql.DriverManager;

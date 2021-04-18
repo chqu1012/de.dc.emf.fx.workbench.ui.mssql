@@ -9,7 +9,7 @@ public enum TableTemplates {
 
 	IGenerator<Table> generator;
 	private String language;
-
+	
 	private TableTemplates(IGenerator<Table> generator, String language) {
 		this.generator = generator;
 		this.language = language;
