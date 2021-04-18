@@ -16,7 +16,7 @@ class BulkInsertMainTemplate implements IGenerator<Table>{
 	
 	public class «input.name»BulkInsertApp{
 		«val server = input.eContainer as MssqlServer»
-		«val user = server.users.head»
+		«val user = server.user»
 		private static final String connectionUrl =
 					                "jdbc:sqlserver://«server.hostname»:«server.port»;"
 					                + "database=«server.databaseName»;"

@@ -28,7 +28,7 @@ class MssqlServer{
 	String hostname
 	String port
 	String databaseName
-	refers User[1..*] users
+	refers User user
 	contains Table[0..*] tables
 }
 
