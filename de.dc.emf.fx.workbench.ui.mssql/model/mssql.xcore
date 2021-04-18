@@ -1,0 +1,82 @@
+@Ecore(nsURI="http://www.frateranatis.org/emf/mssql")
+@GenModel(
+	multipleEditorPages="false", 
+	creationIcons="false", 
+	editDirectory="/de.dc.emf.fx.workbench.ui.mssql/src-gen",
+	editorDirectory="/de.dc.emf.fx.workbench.ui.mssql/src-gen", 
+	modelDirectory="/de.dc.emf.fx.workbench.ui.mssql/src-gen",
+	richClientPlatform="true", 
+	codeFormatting="true",
+	importerID="org.eclipse.emf.importer.ecore", 
+	runtimePlatform="RCP", 
+	fileExtensions="mssql", 
+	modelName="Mssql",
+	prefix="Mssql", 
+	tableProviders="true",
+	generateExampleClass="false", 
+	revertAction="true", 
+	expandAllAction="true", decoration="Live", creationSubmenus="true", collapseAllAction="true",
+	autoResizeProperties="true", autoExpandProperties="1")
+package de.dc.emf.fx.workbench.ui.mssql
+
+class MssqlManager{
+	contains MssqlServer[0..*] servers
+	contains User[0..*] users
+}
+
+class MssqlServer{
+	String hostname
+	String port
+	String databaseName
+	refers User[1..*] users
+	contains Table[0..*] tables
+}
+
+class Table{
+	String name
+	contains Column[0..*] columns
+}
+
+class Column{
+	String name
+	String datatype = 'String'
+	SqlType sqlType = 'VARCHAR'
+	contains PrimaryKey primaryKey
+	boolean isNullable = 'true'
+}
+
+class PrimaryKey{}
+
+enum SqlType{
+	BIG_INT
+	NUMERIC
+	BIT
+	SMALL_INT
+	DECIMAL
+	SMALL_MONEY
+	INT
+	TINY_INT
+	MONEY
+	FLOAT
+	REAL
+	DATE
+	DATETIME2
+	DATETIME
+	DATETIME_OFFSET
+	SMALL_DATETIME
+	TIME
+	CHAR
+	TEXT
+	VARCHAR
+	NCHAR
+	NTEXT
+	BINARY
+	IMAGE
+	VARBINARY
+}
+
+class User{
+	String name
+	String password
+	String email
+}

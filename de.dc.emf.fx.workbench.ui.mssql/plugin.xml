@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated mssql -->
+      <package
+            uri="http://www.frateranatis.org/emf/mssql"
+            class="de.dc.emf.fx.workbench.ui.mssql.MssqlPackage"
+            genModel="model/mssql.xcore"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated mssql -->
+      <factory
+            uri="http://www.frateranatis.org/emf/mssql"
+            class="de.dc.emf.fx.workbench.ui.mssql.provider.MssqlItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource
+               org.eclipse.emf.edit.provider.ITableItemLabelProvider"/>
+   </extension>
+
+   <extension
+         point="org.eclipse.core.runtime.applications"
+         id="MssqlEditorAdvisorApplication">
+      <!-- @generated mssql -->
+      <application>
+         <run class="de.dc.emf.fx.workbench.ui.mssql.provider.MssqlEditorAdvisor$Application"/>
+      </application>
+   </extension>
+
+   <extension point="org.eclipse.ui.perspectives">
+      <!-- @generated mssql -->
+      <perspective
+            name="%_UI_Perspective_label"
+            class="de.dc.emf.fx.workbench.ui.mssql.provider.MssqlEditorAdvisor$Perspective"
+            id="de.dc.emf.fx.workbench.ui.mssql.provider.MssqlEditorAdvisorPerspective">
+      </perspective>
+   </extension>
+
+   <extension point="org.eclipse.ui.commands">
+      <!-- @generated mssql -->
+      <command
+            name="%_UI_Menu_OpenURI_label"
+            description="%_UI_Menu_OpenURI_description"
+            categoryId="org.eclipse.ui.category.file"
+            id="de.dc.emf.fx.workbench.ui.mssql.provider.MssqlEditorAdvisorOpenURICommand"/>
+      <command
+            name="%_UI_Menu_Open_label"
+            description="%_UI_Menu_Open_description"
+            categoryId="org.eclipse.ui.category.file"
+            id="de.dc.emf.fx.workbench.ui.mssql.provider.MssqlEditorAdvisorOpenCommand"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.bindings">
+      <!-- @generated mssql -->
+      <key
+            commandId="de.dc.emf.fx.workbench.ui.mssql.provider.MssqlEditorAdvisorOpenURICommand"
+            sequence="M1+U"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
+      <key
+            commandId="de.dc.emf.fx.workbench.ui.mssql.provider.MssqlEditorAdvisorOpenCommand"
+            sequence="M1+O"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.actionSets">
+      <!-- @generated mssql -->
+      <actionSet
+            label="%_UI_MssqlEditorAdvisor_ActionSet_label"
+            visible="true"
+            id="MssqlEditorAdvisorActionSet">
+         <action
+               label="%_UI_Menu_About_label"
+               class="de.dc.emf.fx.workbench.ui.mssql.provider.MssqlEditorAdvisor$AboutAction"
+               menubarPath="help/additions"
+               id="de.dc.emf.fx.workbench.ui.mssql.provider.MssqlEditorAdvisorAboutAction"/>
+         <action
+               label="%_UI_Menu_OpenURI_label"
+               definitionId="de.dc.emf.fx.workbench.ui.mssql.provider.MssqlEditorAdvisorOpenURICommand"
+               class="de.dc.emf.fx.workbench.ui.mssql.provider.MssqlEditorAdvisor$OpenURIAction"
+               menubarPath="file/additions"
+               id="de.dc.emf.fx.workbench.ui.mssql.provider.MssqlEditorAdvisorOpenURIAction"/>
+         <action
+               label="%_UI_Menu_Open_label"
+               definitionId="de.dc.emf.fx.workbench.ui.mssql.provider.MssqlEditorAdvisorOpenCommand"
+               class="de.dc.emf.fx.workbench.ui.mssql.provider.MssqlEditorAdvisor$OpenAction"
+               menubarPath="file/additions"
+               id="de.dc.emf.fx.workbench.ui.mssql.provider.MssqlEditorAdvisorOpenAction"/>
+      </actionSet>
+   </extension>
+
+   <extension point="org.eclipse.ui.actionSets">
+      <!-- @generated mssql -->
+      <actionSet
+            label="%_UI_MssqlModelWizard_ActionSet_label"
+            visible="true"
+            id="de.dc.emf.fx.workbench.ui.mssql.presentation.MssqlActionBarContributorActionSet">
+         <action
+               label="%_UI_MssqlModelWizard_label"
+               class="de.dc.emf.fx.workbench.ui.mssql.presentation.MssqlActionBarContributor$NewAction"
+               menubarPath="file/new/additions"
+               id="de.dc.emf.fx.workbench.ui.mssql.presentation.MssqlActionBarContributorNewAction"/>
+      </actionSet>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated mssql -->
+      <editor
+            id="de.dc.emf.fx.workbench.ui.mssql.presentation.MssqlEditorID"
+            name="%_UI_MssqlEditor_label"
+            icon="icons/full/obj16/MssqlModelFile.gif"
+            extensions="mssql"
+            class="de.dc.emf.fx.workbench.ui.mssql.presentation.MssqlEditor"
+            contributorClass="de.dc.emf.fx.workbench.ui.mssql.presentation.MssqlActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

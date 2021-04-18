@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ASCII"?>
+<mssql:MssqlManager xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:mssql="http://www.frateranatis.org/fx/emf/mssql">
+  <servers hostname="localhost" port="1521" databaseName="production" users="//@users.0">
+    <tables name="Person">
+      <columns name="firstname"/>
+      <columns name="lastname"/>
+      <columns name="age" datatype="Integer" sqlType="NUMERIC"/>
+      <columns name="id" datatype="Integer" sqlType="NUMERIC" isNullable="false">
+        <primaryKey/>
+      </columns>
+    </tables>
+  </servers>
+  <users name="sa" password="sa"/>
+</mssql:MssqlManager>
