@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <fx:root closable="false" text="Table Form" type="Tab" xmlns="http://javafx.com/javafx/8.0.241" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <TitledPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" text="Table Form">
@@ -28,26 +27,26 @@
                         <Label text="Name" />
                         <TextField fx:id="textColumnName" />
                         <Label text="Datatype" />
-                        <TextField fx:id="textColumnDatatype" />
+                        <ComboBox fx:id="comboDatatype" editable="true" prefWidth="150.0" />
                         <Label text="Sql Type" />
                         <ComboBox fx:id="comboSqlType" prefWidth="150.0" />
                         <CheckBox fx:id="checkNullable" mnemonicParsing="false" text="Nullable" />
                         <CheckBox fx:id="checkIsPrimaryKey" mnemonicParsing="false" text="Is Primary Key" />
-                        <Button mnemonicParsing="false" onAction="#onButtonColumnAddAction" prefHeight="25.0" prefWidth="76.0" text="Add" />
+                        <Button fx:id="buttonAddColumn" mnemonicParsing="false" onAction="#onButtonColumnAddAction" prefHeight="25.0" prefWidth="76.0" text="Add" />
                      </children>
                   </HBox>
                   <ListView fx:id="listViewColumn" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <contextMenu>
                         <ContextMenu>
                           <items>
-                            <MenuItem mnemonicParsing="false" text="Delete" onAction="#onMenuItemDelecteAction"/>
-                              <MenuItem mnemonicParsing="false" text="Up" onAction="#onMenuItemUpAction"/>
-                              <MenuItem mnemonicParsing="false" text="Down" onAction="#onMenuItemDownAction"/>
+                            <MenuItem mnemonicParsing="false" onAction="#onMenuItemDelecteAction" text="Delete" />
+                              <MenuItem mnemonicParsing="false" onAction="#onMenuItemUpAction" text="Up" />
+                              <MenuItem mnemonicParsing="false" onAction="#onMenuItemDownAction" text="Down" />
                           </items>
                         </ContextMenu>
                      </contextMenu>
                   </ListView>
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onButtonCreateTableAction" text="Create Table" />
+                  <Button fx:id="buttonCreateTable" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onButtonCreateTableAction" text="Create Table" />
                </children>
             </VBox>
          </content>

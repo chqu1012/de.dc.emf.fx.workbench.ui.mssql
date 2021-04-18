@@ -1,5 +1,7 @@
 package de.dc.emf.fx.workbench.ui.mssql.view;
 
+import java.util.Arrays;
+
 import javax.inject.Inject;
 
 import de.dc.emf.fx.workbench.jmetro.core.di.EmfFXPlatform;
@@ -11,10 +13,13 @@ import de.dc.emf.fx.workbench.ui.mssql.MssqlServer;
 import de.dc.emf.fx.workbench.ui.mssql.SqlType;
 import de.dc.emf.fx.workbench.ui.mssql.Table;
 import de.dc.emf.fx.workbench.ui.mssql.cell.ColumnListCell;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
@@ -32,7 +37,7 @@ public class MssqlTableFormView extends EmfFxmlView {
 	protected TextField textColumnName;
 
 	@FXML
-	protected TextField textColumnDatatype;
+	protected ComboBox<String> comboDatatype;
 
 	@FXML
 	protected ComboBox<SqlType> comboSqlType;
@@ -46,6 +51,12 @@ public class MssqlTableFormView extends EmfFxmlView {
 	@FXML
 	protected ListView<Column> listViewColumn;
 
+	@FXML
+	protected Button buttonCreateTable;
+
+	@FXML
+	protected Button buttonAddColumn;
+	
 	private ObservableList<Column> columns = FXCollections.observableArrayList();
 
 	public MssqlTableFormView() {
@@ -55,10 +66,33 @@ public class MssqlTableFormView extends EmfFxmlView {
 
 		comboSqlType.setItems(FXCollections.observableArrayList(SqlType.values()));
 		comboSqlType.getSelectionModel().select(SqlType.VARCHAR);
-		textColumnDatatype.setText("String");
 
+		comboDatatype.setItems(FXCollections.observableArrayList(Arrays.asList("String", "Integer", "LocalDateTime", "LocalDate", "Double", "Float", "Clob", "Blob")));
+		comboDatatype.getSelectionModel().selectFirst();
+		comboDatatype.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (newValue!=null) {
+					if (newValue.equals("String")) {
+						comboSqlType.getSelectionModel().select(SqlType.VARCHAR);
+					}else if (newValue.equals("Integer")) {
+						comboSqlType.getSelectionModel().select(SqlType.NUMERIC);
+					}else if (newValue.equals("LocalDateTime")) {
+						comboSqlType.getSelectionModel().select(SqlType.DATETIME);
+					}else if (newValue.equals("LocalDate")) {
+						comboSqlType.getSelectionModel().select(SqlType.DATE);
+					}else if (newValue.equals("Clob")) {
+						comboSqlType.getSelectionModel().select(SqlType.VARCHAR);
+					}
+				}
+			}
+		});
+		
 		listViewColumn.setItems(columns);
 		listViewColumn.setCellFactory(e -> new ColumnListCell());
+		
+		buttonCreateTable.disableProperty().bind(textTableName.textProperty().isEmpty());
+		buttonAddColumn.disableProperty().bind(textColumnName.textProperty().isEmpty());
 	}
 
 	@FXML
@@ -67,7 +101,7 @@ public class MssqlTableFormView extends EmfFxmlView {
 		Column column = MssqlFactory.eINSTANCE.createColumn();
 		column.setName(columnName);
 		column.setSqlType(comboSqlType.getSelectionModel().getSelectedItem());
-		column.setDatatype(textColumnDatatype.getText());
+		column.setDatatype(comboDatatype.getValue());
 		column.setIsNullable(checkNullable.isSelected());
 		if (checkIsPrimaryKey.isSelected()) {
 			column.setPrimaryKey(MssqlFactory.eINSTANCE.createPrimaryKey());
@@ -129,4 +163,5 @@ public class MssqlTableFormView extends EmfFxmlView {
 		columns.add(currentIndex+(1*upOrDown), selection);
 		listViewColumn.getSelectionModel().select(selection);
 	}
+
 }
