@@ -3,6 +3,10 @@ Workbench to create mssql create scripts, running scripts and mapping bulk inser
 
 ![Editor](https://github.com/chqu1012/de.dc.emf.fx.workbench.ui.mssql/blob/main/de.dc.emf.fx.workbench.ui.mssql/resources/images/01_app.PNG) 
 
+# Features
+- Table creation via Form
+- Code Generation
+
 # Third Party
 - JMetro
 - Xcore Eclipse Modelling Fraemwork
