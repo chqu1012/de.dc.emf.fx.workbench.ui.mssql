@@ -49,7 +49,7 @@ public class MssqlTableFormView extends EmfFxmlView {
 	private ObservableList<Column> columns = FXCollections.observableArrayList();
 
 	public MssqlTableFormView() {
-		super("Table Form", "/de/dc/emf/fx/workbench/jmetro/ui/mssql/TableForm.fxml");
+		super("Table Form", "/de/dc/emf/fx/workbench/ui/mssql/TableForm.fxml");
 
 		EmfFXPlatform.inject(this);
 
