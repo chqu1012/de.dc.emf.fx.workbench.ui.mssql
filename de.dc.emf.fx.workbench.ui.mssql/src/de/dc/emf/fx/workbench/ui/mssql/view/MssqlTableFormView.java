@@ -12,7 +12,7 @@ import de.dc.emf.fx.workbench.ui.mssql.MssqlFactory;
 import de.dc.emf.fx.workbench.ui.mssql.MssqlServer;
 import de.dc.emf.fx.workbench.ui.mssql.SqlType;
 import de.dc.emf.fx.workbench.ui.mssql.Table;
-import de.dc.emf.fx.workbench.ui.mssql.cell.ColumnListCell;
+import de.dc.emf.fx.workbench.ui.mssql.cell.ColumnCell;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -89,7 +89,7 @@ public class MssqlTableFormView extends EmfFxmlView {
 		});
 		
 		listViewColumn.setItems(columns);
-		listViewColumn.setCellFactory(e -> new ColumnListCell());
+		listViewColumn.setCellFactory(e -> new ColumnCell());
 		
 		buttonCreateTable.disableProperty().bind(textTableName.textProperty().isEmpty());
 		buttonAddColumn.disableProperty().bind(textColumnName.textProperty().isEmpty());
@@ -163,5 +163,4 @@ public class MssqlTableFormView extends EmfFxmlView {
 		columns.add(currentIndex+(1*upOrDown), selection);
 		listViewColumn.getSelectionModel().select(selection);
 	}
-
 }
