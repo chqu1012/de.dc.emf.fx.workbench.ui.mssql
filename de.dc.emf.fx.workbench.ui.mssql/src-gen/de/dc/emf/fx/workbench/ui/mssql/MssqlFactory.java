@@ -67,6 +67,15 @@ public interface MssqlFactory extends EFactory {
 	PrimaryKey createPrimaryKey();
 
 	/**
+	 * Returns a new object of class '<em>Foreign Key</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Foreign Key</em>'.
+	 * @generated
+	 */
+	ForeignKey createForeignKey();
+
+	/**
 	 * Returns a new object of class '<em>User</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

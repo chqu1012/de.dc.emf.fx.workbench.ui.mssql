@@ -190,6 +190,29 @@ public class MssqlItemProviderAdapterFactory extends MssqlAdapterFactory
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link de.dc.emf.fx.workbench.ui.mssql.ForeignKey} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ForeignKeyItemProvider foreignKeyItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link de.dc.emf.fx.workbench.ui.mssql.ForeignKey}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createForeignKeyAdapter() {
+		if (foreignKeyItemProvider == null) {
+			foreignKeyItemProvider = new ForeignKeyItemProvider(this);
+		}
+
+		return foreignKeyItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link de.dc.emf.fx.workbench.ui.mssql.User} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -327,6 +350,8 @@ public class MssqlItemProviderAdapterFactory extends MssqlAdapterFactory
 			columnItemProvider.dispose();
 		if (primaryKeyItemProvider != null)
 			primaryKeyItemProvider.dispose();
+		if (foreignKeyItemProvider != null)
+			foreignKeyItemProvider.dispose();
 		if (userItemProvider != null)
 			userItemProvider.dispose();
 	}

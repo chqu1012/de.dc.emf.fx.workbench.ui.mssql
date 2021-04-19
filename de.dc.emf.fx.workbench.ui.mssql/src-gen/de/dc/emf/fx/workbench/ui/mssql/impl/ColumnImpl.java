@@ -3,6 +3,7 @@
 package de.dc.emf.fx.workbench.ui.mssql.impl;
 
 import de.dc.emf.fx.workbench.ui.mssql.Column;
+import de.dc.emf.fx.workbench.ui.mssql.ForeignKey;
 import de.dc.emf.fx.workbench.ui.mssql.MssqlPackage;
 import de.dc.emf.fx.workbench.ui.mssql.PrimaryKey;
 import de.dc.emf.fx.workbench.ui.mssql.SqlType;
@@ -27,8 +28,9 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link de.dc.emf.fx.workbench.ui.mssql.impl.ColumnImpl#getName <em>Name</em>}</li>
  *   <li>{@link de.dc.emf.fx.workbench.ui.mssql.impl.ColumnImpl#getDatatype <em>Datatype</em>}</li>
  *   <li>{@link de.dc.emf.fx.workbench.ui.mssql.impl.ColumnImpl#getSqlType <em>Sql Type</em>}</li>
- *   <li>{@link de.dc.emf.fx.workbench.ui.mssql.impl.ColumnImpl#getPrimaryKey <em>Primary Key</em>}</li>
  *   <li>{@link de.dc.emf.fx.workbench.ui.mssql.impl.ColumnImpl#isIsNullable <em>Is Nullable</em>}</li>
+ *   <li>{@link de.dc.emf.fx.workbench.ui.mssql.impl.ColumnImpl#getPrimaryKey <em>Primary Key</em>}</li>
+ *   <li>{@link de.dc.emf.fx.workbench.ui.mssql.impl.ColumnImpl#getForeignKey <em>Foreign Key</em>}</li>
  * </ul>
  *
  * @generated
@@ -95,16 +97,6 @@ public class ColumnImpl extends MinimalEObjectImpl.Container implements Column {
 	protected SqlType sqlType = SQL_TYPE_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getPrimaryKey() <em>Primary Key</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPrimaryKey()
-	 * @generated
-	 * @ordered
-	 */
-	protected PrimaryKey primaryKey;
-
-	/**
 	 * The default value of the '{@link #isIsNullable() <em>Is Nullable</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -123,6 +115,26 @@ public class ColumnImpl extends MinimalEObjectImpl.Container implements Column {
 	 * @ordered
 	 */
 	protected boolean isNullable = IS_NULLABLE_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getPrimaryKey() <em>Primary Key</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPrimaryKey()
+	 * @generated
+	 * @ordered
+	 */
+	protected PrimaryKey primaryKey;
+
+	/**
+	 * The cached value of the '{@link #getForeignKey() <em>Foreign Key</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getForeignKey()
+	 * @generated
+	 * @ordered
+	 */
+	protected ForeignKey foreignKey;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -219,6 +231,30 @@ public class ColumnImpl extends MinimalEObjectImpl.Container implements Column {
 	 * @generated
 	 */
 	@Override
+	public boolean isIsNullable() {
+		return isNullable;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setIsNullable(boolean newIsNullable) {
+		boolean oldIsNullable = isNullable;
+		isNullable = newIsNullable;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, MssqlPackage.COLUMN__IS_NULLABLE, oldIsNullable,
+					isNullable));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public PrimaryKey getPrimaryKey() {
 		return primaryKey;
 	}
@@ -271,8 +307,27 @@ public class ColumnImpl extends MinimalEObjectImpl.Container implements Column {
 	 * @generated
 	 */
 	@Override
-	public boolean isIsNullable() {
-		return isNullable;
+	public ForeignKey getForeignKey() {
+		return foreignKey;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetForeignKey(ForeignKey newForeignKey, NotificationChain msgs) {
+		ForeignKey oldForeignKey = foreignKey;
+		foreignKey = newForeignKey;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					MssqlPackage.COLUMN__FOREIGN_KEY, oldForeignKey, newForeignKey);
+			if (msgs == null)
+				msgs = notification;
+			else
+				msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -281,12 +336,21 @@ public class ColumnImpl extends MinimalEObjectImpl.Container implements Column {
 	 * @generated
 	 */
 	@Override
-	public void setIsNullable(boolean newIsNullable) {
-		boolean oldIsNullable = isNullable;
-		isNullable = newIsNullable;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, MssqlPackage.COLUMN__IS_NULLABLE, oldIsNullable,
-					isNullable));
+	public void setForeignKey(ForeignKey newForeignKey) {
+		if (newForeignKey != foreignKey) {
+			NotificationChain msgs = null;
+			if (foreignKey != null)
+				msgs = ((InternalEObject) foreignKey).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - MssqlPackage.COLUMN__FOREIGN_KEY, null, msgs);
+			if (newForeignKey != null)
+				msgs = ((InternalEObject) newForeignKey).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - MssqlPackage.COLUMN__FOREIGN_KEY, null, msgs);
+			msgs = basicSetForeignKey(newForeignKey, msgs);
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, MssqlPackage.COLUMN__FOREIGN_KEY, newForeignKey,
+					newForeignKey));
 	}
 
 	/**
@@ -299,6 +363,8 @@ public class ColumnImpl extends MinimalEObjectImpl.Container implements Column {
 		switch (featureID) {
 		case MssqlPackage.COLUMN__PRIMARY_KEY:
 			return basicSetPrimaryKey(null, msgs);
+		case MssqlPackage.COLUMN__FOREIGN_KEY:
+			return basicSetForeignKey(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -317,10 +383,12 @@ public class ColumnImpl extends MinimalEObjectImpl.Container implements Column {
 			return getDatatype();
 		case MssqlPackage.COLUMN__SQL_TYPE:
 			return getSqlType();
-		case MssqlPackage.COLUMN__PRIMARY_KEY:
-			return getPrimaryKey();
 		case MssqlPackage.COLUMN__IS_NULLABLE:
 			return isIsNullable();
+		case MssqlPackage.COLUMN__PRIMARY_KEY:
+			return getPrimaryKey();
+		case MssqlPackage.COLUMN__FOREIGN_KEY:
+			return getForeignKey();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -342,11 +410,14 @@ public class ColumnImpl extends MinimalEObjectImpl.Container implements Column {
 		case MssqlPackage.COLUMN__SQL_TYPE:
 			setSqlType((SqlType) newValue);
 			return;
+		case MssqlPackage.COLUMN__IS_NULLABLE:
+			setIsNullable((Boolean) newValue);
+			return;
 		case MssqlPackage.COLUMN__PRIMARY_KEY:
 			setPrimaryKey((PrimaryKey) newValue);
 			return;
-		case MssqlPackage.COLUMN__IS_NULLABLE:
-			setIsNullable((Boolean) newValue);
+		case MssqlPackage.COLUMN__FOREIGN_KEY:
+			setForeignKey((ForeignKey) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -369,11 +440,14 @@ public class ColumnImpl extends MinimalEObjectImpl.Container implements Column {
 		case MssqlPackage.COLUMN__SQL_TYPE:
 			setSqlType(SQL_TYPE_EDEFAULT);
 			return;
+		case MssqlPackage.COLUMN__IS_NULLABLE:
+			setIsNullable(IS_NULLABLE_EDEFAULT);
+			return;
 		case MssqlPackage.COLUMN__PRIMARY_KEY:
 			setPrimaryKey((PrimaryKey) null);
 			return;
-		case MssqlPackage.COLUMN__IS_NULLABLE:
-			setIsNullable(IS_NULLABLE_EDEFAULT);
+		case MssqlPackage.COLUMN__FOREIGN_KEY:
+			setForeignKey((ForeignKey) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -393,10 +467,12 @@ public class ColumnImpl extends MinimalEObjectImpl.Container implements Column {
 			return DATATYPE_EDEFAULT == null ? datatype != null : !DATATYPE_EDEFAULT.equals(datatype);
 		case MssqlPackage.COLUMN__SQL_TYPE:
 			return sqlType != SQL_TYPE_EDEFAULT;
-		case MssqlPackage.COLUMN__PRIMARY_KEY:
-			return primaryKey != null;
 		case MssqlPackage.COLUMN__IS_NULLABLE:
 			return isNullable != IS_NULLABLE_EDEFAULT;
+		case MssqlPackage.COLUMN__PRIMARY_KEY:
+			return primaryKey != null;
+		case MssqlPackage.COLUMN__FOREIGN_KEY:
+			return foreignKey != null;
 		}
 		return super.eIsSet(featureID);
 	}

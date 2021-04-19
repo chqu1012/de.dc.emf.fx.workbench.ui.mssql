@@ -41,11 +41,20 @@ class Column{
 	String name
 	String datatype = 'String'
 	SqlType sqlType = 'VARCHAR'
-	contains PrimaryKey primaryKey
 	boolean isNullable = 'true'
+	contains PrimaryKey primaryKey
+	contains ForeignKey foreignKey
 }
 
-class PrimaryKey{}
+class PrimaryKey{
+	String name
+}
+
+class ForeignKey{
+	String name
+	refers Table table
+	refers Column column
+}
 
 enum SqlType{
 	BIG_INT

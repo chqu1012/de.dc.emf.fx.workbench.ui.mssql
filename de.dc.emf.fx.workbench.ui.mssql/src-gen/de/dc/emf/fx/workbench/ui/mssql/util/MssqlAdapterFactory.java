@@ -92,6 +92,11 @@ public class MssqlAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseForeignKey(ForeignKey object) {
+			return createForeignKeyAdapter();
+		}
+
+		@Override
 		public Adapter caseUser(User object) {
 			return createUserAdapter();
 		}
@@ -182,6 +187,20 @@ public class MssqlAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPrimaryKeyAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link de.dc.emf.fx.workbench.ui.mssql.ForeignKey <em>Foreign Key</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see de.dc.emf.fx.workbench.ui.mssql.ForeignKey
+	 * @generated
+	 */
+	public Adapter createForeignKeyAdapter() {
 		return null;
 	}
 

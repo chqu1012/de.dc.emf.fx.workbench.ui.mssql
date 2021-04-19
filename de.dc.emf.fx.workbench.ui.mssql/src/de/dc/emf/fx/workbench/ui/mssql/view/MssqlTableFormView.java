@@ -1,15 +1,24 @@
 package de.dc.emf.fx.workbench.ui.mssql.view;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 import javax.inject.Inject;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import de.dc.emf.fx.workbench.jmetro.core.di.EmfFXPlatform;
 import de.dc.emf.fx.workbench.jmetro.core.service.ISelectionService;
 import de.dc.emf.fx.workbench.jmetro.ui.EmfFxmlView;
 import de.dc.emf.fx.workbench.ui.mssql.Column;
+import de.dc.emf.fx.workbench.ui.mssql.ForeignKey;
 import de.dc.emf.fx.workbench.ui.mssql.MssqlFactory;
+import de.dc.emf.fx.workbench.ui.mssql.MssqlManager;
 import de.dc.emf.fx.workbench.ui.mssql.MssqlServer;
+import de.dc.emf.fx.workbench.ui.mssql.PrimaryKey;
 import de.dc.emf.fx.workbench.ui.mssql.SqlType;
 import de.dc.emf.fx.workbench.ui.mssql.Table;
 import de.dc.emf.fx.workbench.ui.mssql.cell.ColumnCell;
@@ -21,6 +30,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -31,10 +41,25 @@ public class MssqlTableFormView extends EmfFxmlView {
 	ISelectionService selectionService;
 
 	@FXML
+	protected CheckBox checkIncludeForeignKey;
+
+	@FXML
+	protected TextField textReferenceColumnName;
+
+	@FXML
+	protected TextField textReferenceTableName;
+
+	@FXML
+	protected TextField textForeignKeyName;
+	
+	@FXML
 	protected TextField textTableName;
 
 	@FXML
 	protected TextField textColumnName;
+
+	@FXML
+	protected TextField textPrimaryKeyName;
 
 	@FXML
 	protected ComboBox<String> comboDatatype;
@@ -47,18 +72,22 @@ public class MssqlTableFormView extends EmfFxmlView {
 
 	@FXML
 	protected CheckBox checkIsPrimaryKey;
-
-	@FXML
-	protected ListView<Column> listViewColumn;
-
+	
 	@FXML
 	protected Button buttonCreateTable;
 
 	@FXML
 	protected Button buttonAddColumn;
 	
+	@FXML
+	protected ListView<Column> listViewColumn;
+
 	private ObservableList<Column> columns = FXCollections.observableArrayList();
 
+	private Table currentRefTable;
+
+	private Column currentRefColumn;
+	
 	public MssqlTableFormView() {
 		super("Table Form", "/de/dc/emf/fx/workbench/ui/mssql/TableForm.fxml");
 
@@ -88,6 +117,8 @@ public class MssqlTableFormView extends EmfFxmlView {
 			}
 		});
 		
+		textPrimaryKeyName.disableProperty().bind(checkIsPrimaryKey.selectedProperty().not());
+		
 		listViewColumn.setItems(columns);
 		listViewColumn.setCellFactory(e -> new ColumnCell());
 		
@@ -95,6 +126,46 @@ public class MssqlTableFormView extends EmfFxmlView {
 		buttonAddColumn.disableProperty().bind(textColumnName.textProperty().isEmpty());
 	}
 
+	@FXML
+	protected void onButtonReferenceTableNameAction(ActionEvent event) {
+		Object selection = selectionService.getTreeSelection();
+		EObject rootContainer = EcoreUtil.getRootContainer((EObject) selection);
+		if (rootContainer instanceof MssqlManager) {
+			MssqlManager manager = (MssqlManager) rootContainer;
+			List<Table> tables = new ArrayList<>();
+			for (MssqlServer server : manager.getServers()) {
+				tables.addAll(server.getTables());
+			}
+			ChoiceDialog<Table> choiceDialog = new ChoiceDialog<Table>(null, tables);
+			Optional<Table> result = choiceDialog.showAndWait();
+			result.ifPresent(e->{
+				currentRefTable=e;
+				textReferenceTableName.setText(currentRefTable.getName());
+			});
+		}
+	}
+
+	@FXML
+	protected void onButtonReferenceColumnNameAction(ActionEvent event) {
+		Object selection = selectionService.getTreeSelection();
+		EObject rootContainer = EcoreUtil.getRootContainer((EObject) selection);
+		if (rootContainer instanceof MssqlManager) {
+			MssqlManager manager = (MssqlManager) rootContainer;
+			List<Column> columns = new ArrayList<>();
+			for (MssqlServer server : manager.getServers()) {
+				for (Table table : server.getTables()) {
+					columns.addAll(table.getColumns());
+				}
+			}
+			ChoiceDialog<Column> choiceDialog = new ChoiceDialog<>(null, columns);
+			Optional<Column> result = choiceDialog.showAndWait();
+			result.ifPresent(e->{
+				currentRefColumn=e;
+				textReferenceColumnName.setText(currentRefColumn.getName());
+			});
+		}
+	}
+		
 	@FXML
 	protected void onButtonColumnAddAction(ActionEvent event) {
 		String columnName = textColumnName.getText();
@@ -104,7 +175,16 @@ public class MssqlTableFormView extends EmfFxmlView {
 		column.setDatatype(comboDatatype.getValue());
 		column.setIsNullable(checkNullable.isSelected());
 		if (checkIsPrimaryKey.isSelected()) {
-			column.setPrimaryKey(MssqlFactory.eINSTANCE.createPrimaryKey());
+			PrimaryKey pk = MssqlFactory.eINSTANCE.createPrimaryKey();
+			pk.setName(textPrimaryKeyName.getText());
+			column.setPrimaryKey(pk);
+		}
+		if (checkIncludeForeignKey.isSelected()) {
+			ForeignKey fk = MssqlFactory.eINSTANCE.createForeignKey();
+			fk.setName(textForeignKeyName.getText());
+			fk.setTable(currentRefTable);
+			fk.setColumn(currentRefColumn);
+			column.setForeignKey(fk);
 		}
 		columns.add(column);
 
@@ -163,4 +243,5 @@ public class MssqlTableFormView extends EmfFxmlView {
 		columns.add(currentIndex+(1*upOrDown), selection);
 		listViewColumn.getSelectionModel().select(selection);
 	}
+
 }

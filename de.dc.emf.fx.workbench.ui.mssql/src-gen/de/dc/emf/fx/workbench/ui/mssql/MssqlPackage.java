@@ -260,22 +260,31 @@ public interface MssqlPackage extends EPackage {
 	int COLUMN__SQL_TYPE = 2;
 
 	/**
-	 * The feature id for the '<em><b>Primary Key</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COLUMN__PRIMARY_KEY = 3;
-
-	/**
 	 * The feature id for the '<em><b>Is Nullable</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COLUMN__IS_NULLABLE = 4;
+	int COLUMN__IS_NULLABLE = 3;
+
+	/**
+	 * The feature id for the '<em><b>Primary Key</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLUMN__PRIMARY_KEY = 4;
+
+	/**
+	 * The feature id for the '<em><b>Foreign Key</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLUMN__FOREIGN_KEY = 5;
 
 	/**
 	 * The number of structural features of the '<em>Column</em>' class.
@@ -284,7 +293,7 @@ public interface MssqlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COLUMN_FEATURE_COUNT = 5;
+	int COLUMN_FEATURE_COUNT = 6;
 
 	/**
 	 * The number of operations of the '<em>Column</em>' class.
@@ -306,13 +315,22 @@ public interface MssqlPackage extends EPackage {
 	int PRIMARY_KEY = 4;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIMARY_KEY__NAME = 0;
+
+	/**
 	 * The number of structural features of the '<em>Primary Key</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PRIMARY_KEY_FEATURE_COUNT = 0;
+	int PRIMARY_KEY_FEATURE_COUNT = 1;
 
 	/**
 	 * The number of operations of the '<em>Primary Key</em>' class.
@@ -324,6 +342,61 @@ public interface MssqlPackage extends EPackage {
 	int PRIMARY_KEY_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link de.dc.emf.fx.workbench.ui.mssql.impl.ForeignKeyImpl <em>Foreign Key</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see de.dc.emf.fx.workbench.ui.mssql.impl.ForeignKeyImpl
+	 * @see de.dc.emf.fx.workbench.ui.mssql.impl.MssqlPackageImpl#getForeignKey()
+	 * @generated
+	 */
+	int FOREIGN_KEY = 5;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOREIGN_KEY__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Table</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOREIGN_KEY__TABLE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Column</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOREIGN_KEY__COLUMN = 2;
+
+	/**
+	 * The number of structural features of the '<em>Foreign Key</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOREIGN_KEY_FEATURE_COUNT = 3;
+
+	/**
+	 * The number of operations of the '<em>Foreign Key</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOREIGN_KEY_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link de.dc.emf.fx.workbench.ui.mssql.impl.UserImpl <em>User</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -331,7 +404,7 @@ public interface MssqlPackage extends EPackage {
 	 * @see de.dc.emf.fx.workbench.ui.mssql.impl.MssqlPackageImpl#getUser()
 	 * @generated
 	 */
-	int USER = 5;
+	int USER = 6;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -386,7 +459,7 @@ public interface MssqlPackage extends EPackage {
 	 * @see de.dc.emf.fx.workbench.ui.mssql.impl.MssqlPackageImpl#getSqlType()
 	 * @generated
 	 */
-	int SQL_TYPE = 6;
+	int SQL_TYPE = 7;
 
 	/**
 	 * Returns the meta object for class '{@link de.dc.emf.fx.workbench.ui.mssql.MssqlManager <em>Manager</em>}'.
@@ -561,17 +634,6 @@ public interface MssqlPackage extends EPackage {
 	EAttribute getColumn_SqlType();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link de.dc.emf.fx.workbench.ui.mssql.Column#getPrimaryKey <em>Primary Key</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Primary Key</em>'.
-	 * @see de.dc.emf.fx.workbench.ui.mssql.Column#getPrimaryKey()
-	 * @see #getColumn()
-	 * @generated
-	 */
-	EReference getColumn_PrimaryKey();
-
-	/**
 	 * Returns the meta object for the attribute '{@link de.dc.emf.fx.workbench.ui.mssql.Column#isIsNullable <em>Is Nullable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -583,6 +645,28 @@ public interface MssqlPackage extends EPackage {
 	EAttribute getColumn_IsNullable();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link de.dc.emf.fx.workbench.ui.mssql.Column#getPrimaryKey <em>Primary Key</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Primary Key</em>'.
+	 * @see de.dc.emf.fx.workbench.ui.mssql.Column#getPrimaryKey()
+	 * @see #getColumn()
+	 * @generated
+	 */
+	EReference getColumn_PrimaryKey();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link de.dc.emf.fx.workbench.ui.mssql.Column#getForeignKey <em>Foreign Key</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Foreign Key</em>'.
+	 * @see de.dc.emf.fx.workbench.ui.mssql.Column#getForeignKey()
+	 * @see #getColumn()
+	 * @generated
+	 */
+	EReference getColumn_ForeignKey();
+
+	/**
 	 * Returns the meta object for class '{@link de.dc.emf.fx.workbench.ui.mssql.PrimaryKey <em>Primary Key</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -591,6 +675,60 @@ public interface MssqlPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getPrimaryKey();
+
+	/**
+	 * Returns the meta object for the attribute '{@link de.dc.emf.fx.workbench.ui.mssql.PrimaryKey#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see de.dc.emf.fx.workbench.ui.mssql.PrimaryKey#getName()
+	 * @see #getPrimaryKey()
+	 * @generated
+	 */
+	EAttribute getPrimaryKey_Name();
+
+	/**
+	 * Returns the meta object for class '{@link de.dc.emf.fx.workbench.ui.mssql.ForeignKey <em>Foreign Key</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Foreign Key</em>'.
+	 * @see de.dc.emf.fx.workbench.ui.mssql.ForeignKey
+	 * @generated
+	 */
+	EClass getForeignKey();
+
+	/**
+	 * Returns the meta object for the attribute '{@link de.dc.emf.fx.workbench.ui.mssql.ForeignKey#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see de.dc.emf.fx.workbench.ui.mssql.ForeignKey#getName()
+	 * @see #getForeignKey()
+	 * @generated
+	 */
+	EAttribute getForeignKey_Name();
+
+	/**
+	 * Returns the meta object for the reference '{@link de.dc.emf.fx.workbench.ui.mssql.ForeignKey#getTable <em>Table</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Table</em>'.
+	 * @see de.dc.emf.fx.workbench.ui.mssql.ForeignKey#getTable()
+	 * @see #getForeignKey()
+	 * @generated
+	 */
+	EReference getForeignKey_Table();
+
+	/**
+	 * Returns the meta object for the reference '{@link de.dc.emf.fx.workbench.ui.mssql.ForeignKey#getColumn <em>Column</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Column</em>'.
+	 * @see de.dc.emf.fx.workbench.ui.mssql.ForeignKey#getColumn()
+	 * @see #getForeignKey()
+	 * @generated
+	 */
+	EReference getForeignKey_Column();
 
 	/**
 	 * Returns the meta object for class '{@link de.dc.emf.fx.workbench.ui.mssql.User <em>User</em>}'.
@@ -805,6 +943,14 @@ public interface MssqlPackage extends EPackage {
 		EAttribute COLUMN__SQL_TYPE = eINSTANCE.getColumn_SqlType();
 
 		/**
+		 * The meta object literal for the '<em><b>Is Nullable</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COLUMN__IS_NULLABLE = eINSTANCE.getColumn_IsNullable();
+
+		/**
 		 * The meta object literal for the '<em><b>Primary Key</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -813,12 +959,12 @@ public interface MssqlPackage extends EPackage {
 		EReference COLUMN__PRIMARY_KEY = eINSTANCE.getColumn_PrimaryKey();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Nullable</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Foreign Key</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute COLUMN__IS_NULLABLE = eINSTANCE.getColumn_IsNullable();
+		EReference COLUMN__FOREIGN_KEY = eINSTANCE.getColumn_ForeignKey();
 
 		/**
 		 * The meta object literal for the '{@link de.dc.emf.fx.workbench.ui.mssql.impl.PrimaryKeyImpl <em>Primary Key</em>}' class.
@@ -829,6 +975,48 @@ public interface MssqlPackage extends EPackage {
 		 * @generated
 		 */
 		EClass PRIMARY_KEY = eINSTANCE.getPrimaryKey();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PRIMARY_KEY__NAME = eINSTANCE.getPrimaryKey_Name();
+
+		/**
+		 * The meta object literal for the '{@link de.dc.emf.fx.workbench.ui.mssql.impl.ForeignKeyImpl <em>Foreign Key</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see de.dc.emf.fx.workbench.ui.mssql.impl.ForeignKeyImpl
+		 * @see de.dc.emf.fx.workbench.ui.mssql.impl.MssqlPackageImpl#getForeignKey()
+		 * @generated
+		 */
+		EClass FOREIGN_KEY = eINSTANCE.getForeignKey();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FOREIGN_KEY__NAME = eINSTANCE.getForeignKey_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Table</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FOREIGN_KEY__TABLE = eINSTANCE.getForeignKey_Table();
+
+		/**
+		 * The meta object literal for the '<em><b>Column</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FOREIGN_KEY__COLUMN = eINSTANCE.getForeignKey_Column();
 
 		/**
 		 * The meta object literal for the '{@link de.dc.emf.fx.workbench.ui.mssql.impl.UserImpl <em>User</em>}' class.

@@ -16,8 +16,9 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link de.dc.emf.fx.workbench.ui.mssql.Column#getName <em>Name</em>}</li>
  *   <li>{@link de.dc.emf.fx.workbench.ui.mssql.Column#getDatatype <em>Datatype</em>}</li>
  *   <li>{@link de.dc.emf.fx.workbench.ui.mssql.Column#getSqlType <em>Sql Type</em>}</li>
- *   <li>{@link de.dc.emf.fx.workbench.ui.mssql.Column#getPrimaryKey <em>Primary Key</em>}</li>
  *   <li>{@link de.dc.emf.fx.workbench.ui.mssql.Column#isIsNullable <em>Is Nullable</em>}</li>
+ *   <li>{@link de.dc.emf.fx.workbench.ui.mssql.Column#getPrimaryKey <em>Primary Key</em>}</li>
+ *   <li>{@link de.dc.emf.fx.workbench.ui.mssql.Column#getForeignKey <em>Foreign Key</em>}</li>
  * </ul>
  *
  * @see de.dc.emf.fx.workbench.ui.mssql.MssqlPackage#getColumn()
@@ -97,6 +98,29 @@ public interface Column extends EObject {
 	void setSqlType(SqlType value);
 
 	/**
+	 * Returns the value of the '<em><b>Is Nullable</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Is Nullable</em>' attribute.
+	 * @see #setIsNullable(boolean)
+	 * @see de.dc.emf.fx.workbench.ui.mssql.MssqlPackage#getColumn_IsNullable()
+	 * @model default="true" unique="false"
+	 * @generated
+	 */
+	boolean isIsNullable();
+
+	/**
+	 * Sets the value of the '{@link de.dc.emf.fx.workbench.ui.mssql.Column#isIsNullable <em>Is Nullable</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Is Nullable</em>' attribute.
+	 * @see #isIsNullable()
+	 * @generated
+	 */
+	void setIsNullable(boolean value);
+
+	/**
 	 * Returns the value of the '<em><b>Primary Key</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -119,26 +143,25 @@ public interface Column extends EObject {
 	void setPrimaryKey(PrimaryKey value);
 
 	/**
-	 * Returns the value of the '<em><b>Is Nullable</b></em>' attribute.
-	 * The default value is <code>"true"</code>.
+	 * Returns the value of the '<em><b>Foreign Key</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Is Nullable</em>' attribute.
-	 * @see #setIsNullable(boolean)
-	 * @see de.dc.emf.fx.workbench.ui.mssql.MssqlPackage#getColumn_IsNullable()
-	 * @model default="true" unique="false"
+	 * @return the value of the '<em>Foreign Key</em>' containment reference.
+	 * @see #setForeignKey(ForeignKey)
+	 * @see de.dc.emf.fx.workbench.ui.mssql.MssqlPackage#getColumn_ForeignKey()
+	 * @model containment="true"
 	 * @generated
 	 */
-	boolean isIsNullable();
+	ForeignKey getForeignKey();
 
 	/**
-	 * Sets the value of the '{@link de.dc.emf.fx.workbench.ui.mssql.Column#isIsNullable <em>Is Nullable</em>}' attribute.
+	 * Sets the value of the '{@link de.dc.emf.fx.workbench.ui.mssql.Column#getForeignKey <em>Foreign Key</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Is Nullable</em>' attribute.
-	 * @see #isIsNullable()
+	 * @param value the new value of the '<em>Foreign Key</em>' containment reference.
+	 * @see #getForeignKey()
 	 * @generated
 	 */
-	void setIsNullable(boolean value);
+	void setForeignKey(ForeignKey value);
 
 } // Column

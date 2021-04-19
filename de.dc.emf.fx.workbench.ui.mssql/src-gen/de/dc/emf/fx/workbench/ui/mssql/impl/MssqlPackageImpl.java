@@ -3,6 +3,7 @@
 package de.dc.emf.fx.workbench.ui.mssql.impl;
 
 import de.dc.emf.fx.workbench.ui.mssql.Column;
+import de.dc.emf.fx.workbench.ui.mssql.ForeignKey;
 import de.dc.emf.fx.workbench.ui.mssql.MssqlFactory;
 import de.dc.emf.fx.workbench.ui.mssql.MssqlManager;
 import de.dc.emf.fx.workbench.ui.mssql.MssqlPackage;
@@ -62,6 +63,13 @@ public class MssqlPackageImpl extends EPackageImpl implements MssqlPackage {
 	 * @generated
 	 */
 	private EClass primaryKeyEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass foreignKeyEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -310,8 +318,8 @@ public class MssqlPackageImpl extends EPackageImpl implements MssqlPackage {
 	 * @generated
 	 */
 	@Override
-	public EReference getColumn_PrimaryKey() {
-		return (EReference) columnEClass.getEStructuralFeatures().get(3);
+	public EAttribute getColumn_IsNullable() {
+		return (EAttribute) columnEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -320,8 +328,18 @@ public class MssqlPackageImpl extends EPackageImpl implements MssqlPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getColumn_IsNullable() {
-		return (EAttribute) columnEClass.getEStructuralFeatures().get(4);
+	public EReference getColumn_PrimaryKey() {
+		return (EReference) columnEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getColumn_ForeignKey() {
+		return (EReference) columnEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -332,6 +350,56 @@ public class MssqlPackageImpl extends EPackageImpl implements MssqlPackage {
 	@Override
 	public EClass getPrimaryKey() {
 		return primaryKeyEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getPrimaryKey_Name() {
+		return (EAttribute) primaryKeyEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getForeignKey() {
+		return foreignKeyEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getForeignKey_Name() {
+		return (EAttribute) foreignKeyEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getForeignKey_Table() {
+		return (EReference) foreignKeyEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getForeignKey_Column() {
+		return (EReference) foreignKeyEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -433,10 +501,17 @@ public class MssqlPackageImpl extends EPackageImpl implements MssqlPackage {
 		createEAttribute(columnEClass, COLUMN__NAME);
 		createEAttribute(columnEClass, COLUMN__DATATYPE);
 		createEAttribute(columnEClass, COLUMN__SQL_TYPE);
-		createEReference(columnEClass, COLUMN__PRIMARY_KEY);
 		createEAttribute(columnEClass, COLUMN__IS_NULLABLE);
+		createEReference(columnEClass, COLUMN__PRIMARY_KEY);
+		createEReference(columnEClass, COLUMN__FOREIGN_KEY);
 
 		primaryKeyEClass = createEClass(PRIMARY_KEY);
+		createEAttribute(primaryKeyEClass, PRIMARY_KEY__NAME);
+
+		foreignKeyEClass = createEClass(FOREIGN_KEY);
+		createEAttribute(foreignKeyEClass, FOREIGN_KEY__NAME);
+		createEReference(foreignKeyEClass, FOREIGN_KEY__TABLE);
+		createEReference(foreignKeyEClass, FOREIGN_KEY__COLUMN);
 
 		userEClass = createEClass(USER);
 		createEAttribute(userEClass, USER__NAME);
@@ -523,15 +598,33 @@ public class MssqlPackageImpl extends EPackageImpl implements MssqlPackage {
 				IS_ORDERED);
 		initEAttribute(getColumn_SqlType(), this.getSqlType(), "sqlType", "VARCHAR", 0, 1, Column.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getColumn_PrimaryKey(), this.getPrimaryKey(), null, "primaryKey", null, 0, 1, Column.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
-				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getColumn_IsNullable(), theEcorePackage.getEBoolean(), "isNullable", "true", 0, 1, Column.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED,
 				IS_ORDERED);
+		initEReference(getColumn_PrimaryKey(), this.getPrimaryKey(), null, "primaryKey", null, 0, 1, Column.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getColumn_ForeignKey(), this.getForeignKey(), null, "foreignKey", null, 0, 1, Column.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(primaryKeyEClass, PrimaryKey.class, "PrimaryKey", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPrimaryKey_Name(), theEcorePackage.getEString(), "name", null, 0, 1, PrimaryKey.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED,
+				IS_ORDERED);
+
+		initEClass(foreignKeyEClass, ForeignKey.class, "ForeignKey", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getForeignKey_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ForeignKey.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED,
+				IS_ORDERED);
+		initEReference(getForeignKey_Table(), this.getTable(), null, "table", null, 0, 1, ForeignKey.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getForeignKey_Column(), this.getColumn(), null, "column", null, 0, 1, ForeignKey.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(userEClass, User.class, "User", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getUser_Name(), theEcorePackage.getEString(), "name", null, 0, 1, User.class, !IS_TRANSIENT,

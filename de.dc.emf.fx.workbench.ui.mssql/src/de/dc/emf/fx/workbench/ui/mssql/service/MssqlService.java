@@ -5,11 +5,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Optional;
 
 import de.dc.emf.fx.workbench.ui.mssql.MssqlServer;
 import de.dc.emf.fx.workbench.ui.mssql.Table;
 import de.dc.emf.fx.workbench.ui.mssql.User;
+import de.dc.emf.fx.workbench.ui.mssql.template.TableTemplates;
 
 public class MssqlService implements IMssqlService {
 
@@ -17,7 +17,12 @@ public class MssqlService implements IMssqlService {
 
 	@Override
 	public void connect(String host, String port, String user, String password, String databaseName) throws SQLException {
-		String connectionUrl = "jdbc:sqlserver://"+host+":"+port+";databaseName="+databaseName+";user="+user+";password="+password;
+		if (!port.isEmpty()) {
+			port = ":"+port;
+		}else {
+			port = "";
+		}
+		String connectionUrl = "jdbc:sqlserver://"+host+port+";databaseName="+databaseName+";user="+user+";password="+password;
 
 		System.out.print("Connecting to SQL Server ... ");
 		connection = DriverManager.getConnection(connectionUrl);
@@ -35,20 +40,11 @@ public class MssqlService implements IMssqlService {
 	public void createTable(Table table) throws SQLException {
 		connect((MssqlServer) table.eContainer());
 		
-		StringBuilder sql = new StringBuilder().append("CREATE TABLE "+table.getName()+" ( ");
-				
-		Optional<String> columns = table.getColumns().stream().map(e->{
-			String pk = e.getPrimaryKey()!=null ? " PRIMARY KEY" : "";
-			return e.getName()+" "+e.getSqlType()+pk;
-		}).reduce((e1, e2)-> e1+", "+e2);
-		if (columns.isPresent()) {
-			sql.append(columns);
-		}
-		sql.append("); ");
+		String sql = TableTemplates.TABLE.getGenerator().gen(table);
 		
 		Statement statement = connection.createStatement();
-		statement.executeUpdate(sql.toString());
-		System.out.println("Done -> "+sql.toString() );
+		statement.executeUpdate(sql);
+		System.out.println("Done -> "+sql);
 		
 		disconnect();
 	}

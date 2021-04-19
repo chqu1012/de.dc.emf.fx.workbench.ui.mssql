@@ -2,8 +2,8 @@
  */
 package de.dc.emf.fx.workbench.ui.mssql.provider;
 
+import de.dc.emf.fx.workbench.ui.mssql.ForeignKey;
 import de.dc.emf.fx.workbench.ui.mssql.MssqlPackage;
-import de.dc.emf.fx.workbench.ui.mssql.PrimaryKey;
 
 import java.util.Collection;
 import java.util.List;
@@ -26,12 +26,12 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link de.dc.emf.fx.workbench.ui.mssql.PrimaryKey} object.
+ * This is the item provider adapter for a {@link de.dc.emf.fx.workbench.ui.mssql.ForeignKey} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class PrimaryKeyItemProvider extends ItemProviderAdapter
+public class ForeignKeyItemProvider extends ItemProviderAdapter
 		implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider,
 		IItemLabelProvider, IItemPropertySource, ITableItemLabelProvider {
 	/**
@@ -40,7 +40,7 @@ public class PrimaryKeyItemProvider extends ItemProviderAdapter
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PrimaryKeyItemProvider(AdapterFactory adapterFactory) {
+	public ForeignKeyItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -56,6 +56,8 @@ public class PrimaryKeyItemProvider extends ItemProviderAdapter
 			super.getPropertyDescriptors(object);
 
 			addNamePropertyDescriptor(object);
+			addTablePropertyDescriptor(object);
+			addColumnPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -69,22 +71,52 @@ public class PrimaryKeyItemProvider extends ItemProviderAdapter
 	protected void addNamePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_PrimaryKey_name_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_PrimaryKey_name_feature",
-								"_UI_PrimaryKey_type"),
-						MssqlPackage.Literals.PRIMARY_KEY__NAME, true, false, false,
+						getResourceLocator(), getString("_UI_ForeignKey_name_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_ForeignKey_name_feature",
+								"_UI_ForeignKey_type"),
+						MssqlPackage.Literals.FOREIGN_KEY__NAME, true, false, false,
 						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
-	 * This returns PrimaryKey.gif.
+	 * This adds a property descriptor for the Table feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTablePropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ForeignKey_table_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_ForeignKey_table_feature",
+								"_UI_ForeignKey_type"),
+						MssqlPackage.Literals.FOREIGN_KEY__TABLE, true, false, true, null, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Column feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addColumnPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ForeignKey_column_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_ForeignKey_column_feature",
+								"_UI_ForeignKey_type"),
+						MssqlPackage.Literals.FOREIGN_KEY__COLUMN, true, false, true, null, null, null));
+	}
+
+	/**
+	 * This returns ForeignKey.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/PrimaryKey"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ForeignKey"));
 	}
 
 	/**
@@ -120,9 +152,9 @@ public class PrimaryKeyItemProvider extends ItemProviderAdapter
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((PrimaryKey) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_PrimaryKey_type")
-				: getString("_UI_PrimaryKey_type") + " " + label;
+		String label = ((ForeignKey) object).getName();
+		return label == null || label.length() == 0 ? getString("_UI_ForeignKey_type")
+				: getString("_UI_ForeignKey_type") + " " + label;
 	}
 
 	/**
@@ -151,8 +183,8 @@ public class PrimaryKeyItemProvider extends ItemProviderAdapter
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(PrimaryKey.class)) {
-		case MssqlPackage.PRIMARY_KEY__NAME:
+		switch (notification.getFeatureID(ForeignKey.class)) {
+		case MssqlPackage.FOREIGN_KEY__NAME:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}

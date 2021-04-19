@@ -66,6 +66,8 @@ public class MssqlFactoryImpl extends EFactoryImpl implements MssqlFactory {
 			return createColumn();
 		case MssqlPackage.PRIMARY_KEY:
 			return createPrimaryKey();
+		case MssqlPackage.FOREIGN_KEY:
+			return createForeignKey();
 		case MssqlPackage.USER:
 			return createUser();
 		default:
@@ -156,6 +158,17 @@ public class MssqlFactoryImpl extends EFactoryImpl implements MssqlFactory {
 	public PrimaryKey createPrimaryKey() {
 		PrimaryKeyImpl primaryKey = new PrimaryKeyImpl();
 		return primaryKey;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ForeignKey createForeignKey() {
+		ForeignKeyImpl foreignKey = new ForeignKeyImpl();
+		return foreignKey;
 	}
 
 	/**

@@ -142,6 +142,7 @@ public class ColumnItemProvider extends ItemProviderAdapter
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(MssqlPackage.Literals.COLUMN__PRIMARY_KEY);
+			childrenFeatures.add(MssqlPackage.Literals.COLUMN__FOREIGN_KEY);
 		}
 		return childrenFeatures;
 	}
@@ -242,6 +243,7 @@ public class ColumnItemProvider extends ItemProviderAdapter
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case MssqlPackage.COLUMN__PRIMARY_KEY:
+		case MssqlPackage.COLUMN__FOREIGN_KEY:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -261,6 +263,9 @@ public class ColumnItemProvider extends ItemProviderAdapter
 
 		newChildDescriptors.add(createChildParameter(MssqlPackage.Literals.COLUMN__PRIMARY_KEY,
 				MssqlFactory.eINSTANCE.createPrimaryKey()));
+
+		newChildDescriptors.add(createChildParameter(MssqlPackage.Literals.COLUMN__FOREIGN_KEY,
+				MssqlFactory.eINSTANCE.createForeignKey()));
 	}
 
 	/**
