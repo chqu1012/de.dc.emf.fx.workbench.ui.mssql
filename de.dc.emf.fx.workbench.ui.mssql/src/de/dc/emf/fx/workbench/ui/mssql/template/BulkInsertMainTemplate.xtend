@@ -20,14 +20,14 @@ class BulkInsertMainTemplate implements IGenerator<Table>{
 	public class «name»BulkInsertApp{
 		«val server = input.eContainer as MssqlServer»
 		«val user = server.user»
-		private static final String sourceUrl = ""
+		private static final String sourceUrl = "";
 		private static final String destinationUrl =
 					                "jdbc:sqlserver://«server.hostname»:«server.port»;"
 					                + "database=«server.databaseName»;"
 					                + "user=«user.name»;"
 					                + "password=«user.password»;";
 					                
-		public static void main(String[] args){
+		public static void main(String[] args) throws SQLException{
 			List<«name»> rows = getRows();
 	        «name»Mapping mapping = new «name»Mapping();
 	        Connection connection = DriverManager.getConnection(destinationUrl);
@@ -48,7 +48,7 @@ class BulkInsertMainTemplate implements IGenerator<Table>{
 	            	«input.name.toLowerCase.toFirstUpper» «input.name.toLowerCase» = new «input.name.toLowerCase.toFirstUpper»();
 	            	«FOR i : 0 .. input.columns.size-1»
 	            	«val c = input.columns.get(i)»
-	            	«input.name.toLowerCase».set«c.name.toFirstUpper»(rs.get«c.datatype»(«i+1»));
+	            	«input.name.toLowerCase».set«c.name.toLowerCase.toFirstUpper»(rs.get«c.datatype»(«i+1»));
 	                «ENDFOR»
 	                result.add(«input.name.toLowerCase»);
 	            }

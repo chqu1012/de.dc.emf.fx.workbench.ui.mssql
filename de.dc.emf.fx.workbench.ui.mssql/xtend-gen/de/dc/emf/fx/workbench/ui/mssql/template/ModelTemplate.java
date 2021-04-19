@@ -14,6 +14,10 @@ public class ModelTemplate implements IGenerator<Table> {
     StringConcatenation _builder = new StringConcatenation();
     final String name = StringExtensions.toFirstUpper(input.getName().toLowerCase());
     _builder.newLineIfNotEmpty();
+    _builder.newLine();
+    _builder.append("import java.math.*;");
+    _builder.newLine();
+    _builder.newLine();
     _builder.append("public class ");
     _builder.append(name);
     _builder.append("{");
