@@ -8,3 +8,5 @@
 /BulkInsertMappingTemplate.java
 /TableTemplate.java
 /.SqlDropAllTemplate.java._trace
+/.SqlTableConstraintTemplate.java._trace
+/.SqlServerConstraintTemplate.java._trace

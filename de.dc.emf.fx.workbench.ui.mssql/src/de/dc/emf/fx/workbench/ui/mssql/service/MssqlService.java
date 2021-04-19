@@ -45,7 +45,13 @@ public class MssqlService implements IMssqlService {
 		
 		Statement statement = connection.createStatement();
 		statement.executeUpdate(sql);
-		System.out.println("Done -> "+sql);
+		System.out.println("Create Tables: Done -> "+sql);
+		
+		sql = TableTemplates.ADD_CONSTRAINTS.getGenerator().gen(table);
+		statement = connection.createStatement();
+		statement.executeUpdate(sql);
+
+		System.out.println("Add Table Constraints: Done -> "+sql);
 		
 		disconnect();
 	}
