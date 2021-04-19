@@ -1,7 +1,6 @@
 package de.dc.emf.fx.workbench.ui.mssql.template
 
 import de.dc.emf.fx.workbench.ui.mssql.Table
-import de.dc.emf.fx.workbench.ui.mssql.template.IGenerator
 
 class BulkInsertMappingTemplate implements IGenerator<Table>{
 	
@@ -9,13 +8,13 @@ class BulkInsertMappingTemplate implements IGenerator<Table>{
 	
 	override gen(Table input)'''
 	import de.bytefish.jsqlserverbulkinsert.mapping.AbstractMapping;
+	«val name = input.name.toLowerCase.toFirstUpper»
+	public class «name»Mapping extends AbstractMapping<«name»> {
 	
-	public class «input.name»Mapping extends AbstractMapping<«input.name»> {
-	
-	    public «input.name»Mapping() {
-	        super("dbo", "«input.name»");
+	    public «name»Mapping() {
+	        super("dbo", "«name»");
 			«FOR c : input.columns»
-			map«c.sqlType.name().toLowerCase.toFirstUpper»("«c.name.toFirstUpper»", «input.name»::get«c.name.toFirstUpper»);
+			map«c.sqlType.name().toLowerCase.toFirstUpper»("«c.name.toFirstUpper»", «name»::get«c.name.toFirstUpper»);
 	        «ENDFOR»
 	    }
 	}

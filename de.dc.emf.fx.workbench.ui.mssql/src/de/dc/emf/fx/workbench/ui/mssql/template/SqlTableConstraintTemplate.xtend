@@ -1,7 +1,6 @@
 package de.dc.emf.fx.workbench.ui.mssql.template
 
 import de.dc.emf.fx.workbench.ui.mssql.Table
-import de.dc.emf.fx.workbench.ui.mssql.template.IGenerator
 
 class SqlTableConstraintTemplate implements IGenerator<Table>{
 	

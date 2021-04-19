@@ -4,6 +4,7 @@ import de.dc.emf.fx.workbench.ui.mssql.Table;
 
 public enum TableTemplates {
 	TABLE(new TableTemplate(), "sql"), 
+	MODEL(new ModelTemplate(), "java"),
 	BULK_INSERT_MAPPING(new BulkInsertMappingTemplate(), "java"),
 	BULK_INSERT_MAIN(new BulkInsertMainTemplate(), "java"),
 	ADD_CONSTRAINTS(new SqlTableConstraintTemplate(), "sql")

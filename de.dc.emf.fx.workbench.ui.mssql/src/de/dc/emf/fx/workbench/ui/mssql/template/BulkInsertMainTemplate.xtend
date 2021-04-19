@@ -1,7 +1,7 @@
 package de.dc.emf.fx.workbench.ui.mssql.template
 
-import de.dc.emf.fx.workbench.ui.mssql.MssqlServer
 import de.dc.emf.fx.workbench.ui.mssql.Table
+import de.dc.emf.fx.workbench.ui.mssql.MssqlServer
 
 class BulkInsertMainTemplate implements IGenerator<Table>{
 	
@@ -13,35 +13,33 @@ class BulkInsertMainTemplate implements IGenerator<Table>{
 	import java.sql.ResultSet;
 	import java.sql.SQLException;
 	import java.sql.Statement;
-	
-	public class «input.name»BulkInsertApp{
+	«val name = input.name.toLowerCase.toFirstUpper»
+	public class «name»BulkInsertApp{
 		«val server = input.eContainer as MssqlServer»
 		«val user = server.user»
 		private static final String connectionUrl =
 					                "jdbc:sqlserver://«server.hostname»:«server.port»;"
 					                + "database=«server.databaseName»;"
 					                + "user=«user.name»;"
-					                + "password=«user.password»;"
+					                + "password=«user.password»;";
 					                
 		public static void main(String[] args){
-			List<«input.name»> rows = getRows();
-	        «input.name»Mapping mapping = new «input.name»Mapping();
-	        SqlServerBulkInsert<«input.name»> bulkInsert = new SqlServerBulkInsert<>(mapping);
+			List<«name»> rows = getRows();
+	        «name»Mapping mapping = new «name»Mapping();
+	        SqlServerBulkInsert<«name»> bulkInsert = new SqlServerBulkInsert<>(mapping);
 			bulkInsert.saveAll(connection, rows.stream());
 		}
 		
-		private List<«input.name»> getRows(){
-			List<«input.name»> result = new ArrayList<>();
+		private static List<«name»> getRows(){
+			List<«name»> result = new ArrayList<>();
 			
-	        ResultSet resultSet = null;
-	
 	        try (Connection connection = DriverManager.getConnection(connectionUrl);
 	                Statement statement = connection.createStatement();) {
 	
 	            String selectSql = "SELECT * from «input.name»";
-	            resultSet = statement.executeQuery(selectSql);
+	            ResultSet rs = statement.executeQuery(selectSql);
 	
-	            while (resultSet.next()) {
+	            while (rs.next()) {
 	            	«input.name» «input.name.toFirstLower» = new «input.name»();
 	            	«FOR i : 0 .. input.columns.size-1»
 	            	«val c = input.columns.get(i)»
