@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
-import javax.inject.Inject;
-
 import org.apache.commons.io.FileUtils;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.EFactory;
@@ -14,6 +12,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
 import com.google.common.eventbus.Subscribe;
+import com.google.inject.Inject;
 
 import de.dc.emf.fx.workbench.jmetro.core.event.EventContext;
 import de.dc.emf.fx.workbench.jmetro.core.event.EventTopic;
@@ -57,23 +56,41 @@ public class MssqlEditor extends SimpleEmfEditor<MssqlManager> {
 				populateMenuItemForTable(table);
 			}else if (input instanceof MssqlServer) {
 				MssqlServer server = (MssqlServer) input;
-				menuRun.getItems().add(new MenuItem("Create All Tables"));
-				for (Table table : server.getTables()) {
-					MenuItem menuItem = new MenuItem("Create "+table.getName());
-					menuItem.setOnAction(e->{
+				MenuItem menuItemCreateAllTables = new MenuItem("Create All Tables");
+				menuItemCreateAllTables.setOnAction(e->{
+					for (Table table : server.getTables()) {
 						try {
 							mssqlService.createTable(table);
 						} catch (SQLException e1) {
 							e1.printStackTrace();
 						}
-					});
-					menuRun.getItems().add(menuItem);
-				}
+					}
+				});
+				MenuItem menuItemDropAllTables = new MenuItem("Drop All Tables / Constraints");
+				menuItemDropAllTables.setOnAction(e->{
+					try {
+						mssqlService.drop(server);
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				});
+				menuRun.getItems().add(menuItemCreateAllTables);
+				menuRun.getItems().add(menuItemDropAllTables);
 			}
 		}
 	}
 
 	private void populateMenuItemForTable(Table table) {
+		MenuItem menuItem = new MenuItem("Create "+table.getName());
+		menuItem.setOnAction(e->{
+			try {
+				mssqlService.createTable(table);
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		});
+		menuRun.getItems().add(menuItem);
+		
 		for (TableTemplates tpl : TableTemplates.values()) {
 			MenuItem item = new MenuItem(tpl.name());
 			item.setOnAction(e -> onMenuItemExportAction(table, tpl));
@@ -141,4 +158,5 @@ public class MssqlEditor extends SimpleEmfEditor<MssqlManager> {
 	protected EPackage getEPackage() {
 		return MssqlPackage.eINSTANCE;
 	}
+
 }

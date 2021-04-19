@@ -9,6 +9,7 @@ import java.sql.Statement;
 import de.dc.emf.fx.workbench.ui.mssql.MssqlServer;
 import de.dc.emf.fx.workbench.ui.mssql.Table;
 import de.dc.emf.fx.workbench.ui.mssql.User;
+import de.dc.emf.fx.workbench.ui.mssql.template.ServerTemplates;
 import de.dc.emf.fx.workbench.ui.mssql.template.TableTemplates;
 
 public class MssqlService implements IMssqlService {
@@ -57,8 +58,33 @@ public class MssqlService implements IMssqlService {
 
 	@Override
 	public void disconnect() throws SQLException {
-		// TODO Auto-generated method stub
+		connection.close();
+	}
+
+	@Override
+	public void drop(Table table) throws SQLException {
+		connect((MssqlServer) table.eContainer());
 		
+		String sql = TableTemplates.TABLE.getGenerator().gen(table);
+		
+		Statement statement = connection.createStatement();
+		statement.executeUpdate(sql);
+		System.out.println("Done -> "+sql);
+		
+		disconnect();		
+	}
+
+	@Override
+	public void drop(MssqlServer server) throws SQLException {
+		connect(server);
+		
+		String sql = ServerTemplates.DROP_ALL_TABLES.getGenerator().gen(server);
+		
+		Statement statement = connection.createStatement();
+		statement.executeUpdate(sql);
+		System.out.println("Done -> "+sql);
+		
+		disconnect();			
 	}
 
 }

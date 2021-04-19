@@ -13,4 +13,6 @@ public interface IMssqlService {
 	void disconnect() throws SQLException;
 	ResultSet query(String sql) throws SQLException;
 	void createTable(Table table) throws SQLException;
+	void drop(Table table) throws SQLException;
+	void drop(MssqlServer server) throws SQLException;
 }
