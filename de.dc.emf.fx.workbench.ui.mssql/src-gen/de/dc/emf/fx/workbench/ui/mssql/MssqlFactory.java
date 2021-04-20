@@ -58,6 +58,15 @@ public interface MssqlFactory extends EFactory {
 	Column createColumn();
 
 	/**
+	 * Returns a new object of class '<em>Bound</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Bound</em>'.
+	 * @generated
+	 */
+	Bound createBound();
+
+	/**
 	 * Returns a new object of class '<em>Primary Key</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

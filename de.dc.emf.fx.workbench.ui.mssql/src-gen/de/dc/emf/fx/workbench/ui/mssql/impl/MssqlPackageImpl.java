@@ -2,6 +2,7 @@
  */
 package de.dc.emf.fx.workbench.ui.mssql.impl;
 
+import de.dc.emf.fx.workbench.ui.mssql.Bound;
 import de.dc.emf.fx.workbench.ui.mssql.Column;
 import de.dc.emf.fx.workbench.ui.mssql.ForeignKey;
 import de.dc.emf.fx.workbench.ui.mssql.MssqlFactory;
@@ -56,6 +57,13 @@ public class MssqlPackageImpl extends EPackageImpl implements MssqlPackage {
 	 * @generated
 	 */
 	private EClass columnEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass boundEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -348,6 +356,36 @@ public class MssqlPackageImpl extends EPackageImpl implements MssqlPackage {
 	 * @generated
 	 */
 	@Override
+	public EReference getColumn_Bound() {
+		return (EReference) columnEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getBound() {
+		return boundEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getBound_Value() {
+		return (EAttribute) boundEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getPrimaryKey() {
 		return primaryKeyEClass;
 	}
@@ -504,6 +542,10 @@ public class MssqlPackageImpl extends EPackageImpl implements MssqlPackage {
 		createEAttribute(columnEClass, COLUMN__IS_NULLABLE);
 		createEReference(columnEClass, COLUMN__PRIMARY_KEY);
 		createEReference(columnEClass, COLUMN__FOREIGN_KEY);
+		createEReference(columnEClass, COLUMN__BOUND);
+
+		boundEClass = createEClass(BOUND);
+		createEAttribute(boundEClass, BOUND__VALUE);
 
 		primaryKeyEClass = createEClass(PRIMARY_KEY);
 		createEAttribute(primaryKeyEClass, PRIMARY_KEY__NAME);
@@ -607,6 +649,13 @@ public class MssqlPackageImpl extends EPackageImpl implements MssqlPackage {
 		initEReference(getColumn_ForeignKey(), this.getForeignKey(), null, "foreignKey", null, 0, 1, Column.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getColumn_Bound(), this.getBound(), null, "bound", null, 0, 1, Column.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+				IS_ORDERED);
+
+		initEClass(boundEClass, Bound.class, "Bound", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getBound_Value(), theEcorePackage.getEInt(), "value", null, 0, 1, Bound.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(primaryKeyEClass, PrimaryKey.class, "PrimaryKey", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -637,11 +686,15 @@ public class MssqlPackageImpl extends EPackageImpl implements MssqlPackage {
 
 		// Initialize enums and add enum literals
 		initEEnum(sqlTypeEEnum, SqlType.class, "SqlType");
-		addEEnumLiteral(sqlTypeEEnum, SqlType.BIG_INT);
 		addEEnumLiteral(sqlTypeEEnum, SqlType.NUMERIC);
+		addEEnumLiteral(sqlTypeEEnum, SqlType.VARCHAR);
+		addEEnumLiteral(sqlTypeEEnum, SqlType.DATETIME);
+		addEEnumLiteral(sqlTypeEEnum, SqlType.DECIMAL);
+		addEEnumLiteral(sqlTypeEEnum, SqlType.CHAR);
+		addEEnumLiteral(sqlTypeEEnum, SqlType.NCHAR);
+		addEEnumLiteral(sqlTypeEEnum, SqlType.BIG_INT);
 		addEEnumLiteral(sqlTypeEEnum, SqlType.BIT);
 		addEEnumLiteral(sqlTypeEEnum, SqlType.SMALL_INT);
-		addEEnumLiteral(sqlTypeEEnum, SqlType.DECIMAL);
 		addEEnumLiteral(sqlTypeEEnum, SqlType.SMALL_MONEY);
 		addEEnumLiteral(sqlTypeEEnum, SqlType.INT);
 		addEEnumLiteral(sqlTypeEEnum, SqlType.TINY_INT);
@@ -650,14 +703,10 @@ public class MssqlPackageImpl extends EPackageImpl implements MssqlPackage {
 		addEEnumLiteral(sqlTypeEEnum, SqlType.REAL);
 		addEEnumLiteral(sqlTypeEEnum, SqlType.DATE);
 		addEEnumLiteral(sqlTypeEEnum, SqlType.DATETIME2);
-		addEEnumLiteral(sqlTypeEEnum, SqlType.DATETIME);
 		addEEnumLiteral(sqlTypeEEnum, SqlType.DATETIME_OFFSET);
 		addEEnumLiteral(sqlTypeEEnum, SqlType.SMALL_DATETIME);
 		addEEnumLiteral(sqlTypeEEnum, SqlType.TIME);
-		addEEnumLiteral(sqlTypeEEnum, SqlType.CHAR);
 		addEEnumLiteral(sqlTypeEEnum, SqlType.TEXT);
-		addEEnumLiteral(sqlTypeEEnum, SqlType.VARCHAR);
-		addEEnumLiteral(sqlTypeEEnum, SqlType.NCHAR);
 		addEEnumLiteral(sqlTypeEEnum, SqlType.NTEXT);
 		addEEnumLiteral(sqlTypeEEnum, SqlType.BINARY);
 		addEEnumLiteral(sqlTypeEEnum, SqlType.IMAGE);

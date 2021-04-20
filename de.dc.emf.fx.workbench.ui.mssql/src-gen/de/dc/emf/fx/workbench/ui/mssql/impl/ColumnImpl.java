@@ -2,6 +2,7 @@
  */
 package de.dc.emf.fx.workbench.ui.mssql.impl;
 
+import de.dc.emf.fx.workbench.ui.mssql.Bound;
 import de.dc.emf.fx.workbench.ui.mssql.Column;
 import de.dc.emf.fx.workbench.ui.mssql.ForeignKey;
 import de.dc.emf.fx.workbench.ui.mssql.MssqlPackage;
@@ -31,6 +32,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link de.dc.emf.fx.workbench.ui.mssql.impl.ColumnImpl#isIsNullable <em>Is Nullable</em>}</li>
  *   <li>{@link de.dc.emf.fx.workbench.ui.mssql.impl.ColumnImpl#getPrimaryKey <em>Primary Key</em>}</li>
  *   <li>{@link de.dc.emf.fx.workbench.ui.mssql.impl.ColumnImpl#getForeignKey <em>Foreign Key</em>}</li>
+ *   <li>{@link de.dc.emf.fx.workbench.ui.mssql.impl.ColumnImpl#getBound <em>Bound</em>}</li>
  * </ul>
  *
  * @generated
@@ -135,6 +137,16 @@ public class ColumnImpl extends MinimalEObjectImpl.Container implements Column {
 	 * @ordered
 	 */
 	protected ForeignKey foreignKey;
+
+	/**
+	 * The cached value of the '{@link #getBound() <em>Bound</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBound()
+	 * @generated
+	 * @ordered
+	 */
+	protected Bound bound;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -359,12 +371,65 @@ public class ColumnImpl extends MinimalEObjectImpl.Container implements Column {
 	 * @generated
 	 */
 	@Override
+	public Bound getBound() {
+		return bound;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetBound(Bound newBound, NotificationChain msgs) {
+		Bound oldBound = bound;
+		bound = newBound;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, MssqlPackage.COLUMN__BOUND,
+					oldBound, newBound);
+			if (msgs == null)
+				msgs = notification;
+			else
+				msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setBound(Bound newBound) {
+		if (newBound != bound) {
+			NotificationChain msgs = null;
+			if (bound != null)
+				msgs = ((InternalEObject) bound).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - MssqlPackage.COLUMN__BOUND, null, msgs);
+			if (newBound != null)
+				msgs = ((InternalEObject) newBound).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - MssqlPackage.COLUMN__BOUND, null, msgs);
+			msgs = basicSetBound(newBound, msgs);
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, MssqlPackage.COLUMN__BOUND, newBound, newBound));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case MssqlPackage.COLUMN__PRIMARY_KEY:
 			return basicSetPrimaryKey(null, msgs);
 		case MssqlPackage.COLUMN__FOREIGN_KEY:
 			return basicSetForeignKey(null, msgs);
+		case MssqlPackage.COLUMN__BOUND:
+			return basicSetBound(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -389,6 +454,8 @@ public class ColumnImpl extends MinimalEObjectImpl.Container implements Column {
 			return getPrimaryKey();
 		case MssqlPackage.COLUMN__FOREIGN_KEY:
 			return getForeignKey();
+		case MssqlPackage.COLUMN__BOUND:
+			return getBound();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -418,6 +485,9 @@ public class ColumnImpl extends MinimalEObjectImpl.Container implements Column {
 			return;
 		case MssqlPackage.COLUMN__FOREIGN_KEY:
 			setForeignKey((ForeignKey) newValue);
+			return;
+		case MssqlPackage.COLUMN__BOUND:
+			setBound((Bound) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -449,6 +519,9 @@ public class ColumnImpl extends MinimalEObjectImpl.Container implements Column {
 		case MssqlPackage.COLUMN__FOREIGN_KEY:
 			setForeignKey((ForeignKey) null);
 			return;
+		case MssqlPackage.COLUMN__BOUND:
+			setBound((Bound) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -473,6 +546,8 @@ public class ColumnImpl extends MinimalEObjectImpl.Container implements Column {
 			return primaryKey != null;
 		case MssqlPackage.COLUMN__FOREIGN_KEY:
 			return foreignKey != null;
+		case MssqlPackage.COLUMN__BOUND:
+			return bound != null;
 		}
 		return super.eIsSet(featureID);
 	}

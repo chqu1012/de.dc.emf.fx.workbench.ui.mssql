@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link de.dc.emf.fx.workbench.ui.mssql.Column#isIsNullable <em>Is Nullable</em>}</li>
  *   <li>{@link de.dc.emf.fx.workbench.ui.mssql.Column#getPrimaryKey <em>Primary Key</em>}</li>
  *   <li>{@link de.dc.emf.fx.workbench.ui.mssql.Column#getForeignKey <em>Foreign Key</em>}</li>
+ *   <li>{@link de.dc.emf.fx.workbench.ui.mssql.Column#getBound <em>Bound</em>}</li>
  * </ul>
  *
  * @see de.dc.emf.fx.workbench.ui.mssql.MssqlPackage#getColumn()
@@ -163,5 +164,27 @@ public interface Column extends EObject {
 	 * @generated
 	 */
 	void setForeignKey(ForeignKey value);
+
+	/**
+	 * Returns the value of the '<em><b>Bound</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Bound</em>' containment reference.
+	 * @see #setBound(Bound)
+	 * @see de.dc.emf.fx.workbench.ui.mssql.MssqlPackage#getColumn_Bound()
+	 * @model containment="true"
+	 * @generated
+	 */
+	Bound getBound();
+
+	/**
+	 * Sets the value of the '{@link de.dc.emf.fx.workbench.ui.mssql.Column#getBound <em>Bound</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Bound</em>' containment reference.
+	 * @see #getBound()
+	 * @generated
+	 */
+	void setBound(Bound value);
 
 } // Column

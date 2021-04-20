@@ -19,16 +19,6 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum SqlType implements Enumerator {
 	/**
-	 * The '<em><b>BIG INT</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #BIG_INT_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	BIG_INT(0, "BIG_INT", "BIG_INT"),
-
-	/**
 	 * The '<em><b>NUMERIC</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -37,6 +27,66 @@ public enum SqlType implements Enumerator {
 	 * @ordered
 	 */
 	NUMERIC(0, "NUMERIC", "NUMERIC"),
+
+	/**
+	 * The '<em><b>VARCHAR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #VARCHAR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	VARCHAR(0, "VARCHAR", "VARCHAR"),
+
+	/**
+	 * The '<em><b>DATETIME</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DATETIME_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	DATETIME(0, "DATETIME", "DATETIME"),
+
+	/**
+	 * The '<em><b>DECIMAL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DECIMAL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	DECIMAL(0, "DECIMAL", "DECIMAL"),
+
+	/**
+	 * The '<em><b>CHAR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #CHAR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	CHAR(0, "CHAR", "CHAR"),
+
+	/**
+	 * The '<em><b>NCHAR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NCHAR_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	NCHAR(0, "NCHAR", "NCHAR"),
+
+	/**
+	 * The '<em><b>BIG INT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #BIG_INT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	BIG_INT(0, "BIG_INT", "BIG_INT"),
 
 	/**
 	 * The '<em><b>BIT</b></em>' literal object.
@@ -57,16 +107,6 @@ public enum SqlType implements Enumerator {
 	 * @ordered
 	 */
 	SMALL_INT(0, "SMALL_INT", "SMALL_INT"),
-
-	/**
-	 * The '<em><b>DECIMAL</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DECIMAL_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	DECIMAL(0, "DECIMAL", "DECIMAL"),
 
 	/**
 	 * The '<em><b>SMALL MONEY</b></em>' literal object.
@@ -149,16 +189,6 @@ public enum SqlType implements Enumerator {
 	DATETIME2(0, "DATETIME2", "DATETIME2"),
 
 	/**
-	 * The '<em><b>DATETIME</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DATETIME_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	DATETIME(0, "DATETIME", "DATETIME"),
-
-	/**
 	 * The '<em><b>DATETIME OFFSET</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -189,16 +219,6 @@ public enum SqlType implements Enumerator {
 	TIME(0, "TIME", "TIME"),
 
 	/**
-	 * The '<em><b>CHAR</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #CHAR_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	CHAR(0, "CHAR", "CHAR"),
-
-	/**
 	 * The '<em><b>TEXT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -207,26 +227,6 @@ public enum SqlType implements Enumerator {
 	 * @ordered
 	 */
 	TEXT(0, "TEXT", "TEXT"),
-
-	/**
-	 * The '<em><b>VARCHAR</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #VARCHAR_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	VARCHAR(0, "VARCHAR", "VARCHAR"),
-
-	/**
-	 * The '<em><b>NCHAR</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #NCHAR_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	NCHAR(0, "NCHAR", "NCHAR"),
 
 	/**
 	 * The '<em><b>NTEXT</b></em>' literal object.
@@ -269,17 +269,6 @@ public enum SqlType implements Enumerator {
 	VARBINARY(0, "VARBINARY", "VARBINARY");
 
 	/**
-	 * The '<em><b>BIG INT</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #BIG_INT
-	 * @model
-	 * @generated
-	 * @ordered
-	 */
-	public static final int BIG_INT_VALUE = 0;
-
-	/**
 	 * The '<em><b>NUMERIC</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -289,6 +278,72 @@ public enum SqlType implements Enumerator {
 	 * @ordered
 	 */
 	public static final int NUMERIC_VALUE = 0;
+
+	/**
+	 * The '<em><b>VARCHAR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #VARCHAR
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int VARCHAR_VALUE = 0;
+
+	/**
+	 * The '<em><b>DATETIME</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DATETIME
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DATETIME_VALUE = 0;
+
+	/**
+	 * The '<em><b>DECIMAL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #DECIMAL
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DECIMAL_VALUE = 0;
+
+	/**
+	 * The '<em><b>CHAR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #CHAR
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int CHAR_VALUE = 0;
+
+	/**
+	 * The '<em><b>NCHAR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NCHAR
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int NCHAR_VALUE = 0;
+
+	/**
+	 * The '<em><b>BIG INT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #BIG_INT
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int BIG_INT_VALUE = 0;
 
 	/**
 	 * The '<em><b>BIT</b></em>' literal value.
@@ -311,17 +366,6 @@ public enum SqlType implements Enumerator {
 	 * @ordered
 	 */
 	public static final int SMALL_INT_VALUE = 0;
-
-	/**
-	 * The '<em><b>DECIMAL</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DECIMAL
-	 * @model
-	 * @generated
-	 * @ordered
-	 */
-	public static final int DECIMAL_VALUE = 0;
 
 	/**
 	 * The '<em><b>SMALL MONEY</b></em>' literal value.
@@ -412,17 +456,6 @@ public enum SqlType implements Enumerator {
 	public static final int DATETIME2_VALUE = 0;
 
 	/**
-	 * The '<em><b>DATETIME</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #DATETIME
-	 * @model
-	 * @generated
-	 * @ordered
-	 */
-	public static final int DATETIME_VALUE = 0;
-
-	/**
 	 * The '<em><b>DATETIME OFFSET</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -456,17 +489,6 @@ public enum SqlType implements Enumerator {
 	public static final int TIME_VALUE = 0;
 
 	/**
-	 * The '<em><b>CHAR</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #CHAR
-	 * @model
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CHAR_VALUE = 0;
-
-	/**
 	 * The '<em><b>TEXT</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -476,28 +498,6 @@ public enum SqlType implements Enumerator {
 	 * @ordered
 	 */
 	public static final int TEXT_VALUE = 0;
-
-	/**
-	 * The '<em><b>VARCHAR</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #VARCHAR
-	 * @model
-	 * @generated
-	 * @ordered
-	 */
-	public static final int VARCHAR_VALUE = 0;
-
-	/**
-	 * The '<em><b>NCHAR</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #NCHAR
-	 * @model
-	 * @generated
-	 * @ordered
-	 */
-	public static final int NCHAR_VALUE = 0;
 
 	/**
 	 * The '<em><b>NTEXT</b></em>' literal value.
@@ -549,9 +549,9 @@ public enum SqlType implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final SqlType[] VALUES_ARRAY = new SqlType[] { BIG_INT, NUMERIC, BIT, SMALL_INT, DECIMAL,
-			SMALL_MONEY, INT, TINY_INT, MONEY, FLOAT, REAL, DATE, DATETIME2, DATETIME, DATETIME_OFFSET, SMALL_DATETIME,
-			TIME, CHAR, TEXT, VARCHAR, NCHAR, NTEXT, BINARY, IMAGE, VARBINARY, };
+	private static final SqlType[] VALUES_ARRAY = new SqlType[] { NUMERIC, VARCHAR, DATETIME, DECIMAL, CHAR, NCHAR,
+			BIG_INT, BIT, SMALL_INT, SMALL_MONEY, INT, TINY_INT, MONEY, FLOAT, REAL, DATE, DATETIME2, DATETIME_OFFSET,
+			SMALL_DATETIME, TIME, TEXT, NTEXT, BINARY, IMAGE, VARBINARY, };
 
 	/**
 	 * A public read-only list of all the '<em><b>Sql Type</b></em>' enumerators.
@@ -607,8 +607,8 @@ public enum SqlType implements Enumerator {
 	 */
 	public static SqlType get(int value) {
 		switch (value) {
-		case BIG_INT_VALUE:
-			return BIG_INT;
+		case NUMERIC_VALUE:
+			return NUMERIC;
 		}
 		return null;
 	}

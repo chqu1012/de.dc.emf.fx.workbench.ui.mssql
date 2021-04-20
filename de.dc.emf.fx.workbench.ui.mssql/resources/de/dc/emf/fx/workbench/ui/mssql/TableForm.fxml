@@ -8,111 +8,181 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 
 <fx:root text="Table Form" type="Tab" xmlns="http://javafx.com/javafx/8.0.241" xmlns:fx="http://javafx.com/fxml/1">
    <content>
-      <TitledPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" text="Table Form">
-         <content>
-            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="800.0" spacing="5.0">
-               <children>
-                  <Label text="Table:" underline="true">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <HBox alignment="CENTER_LEFT" spacing="5.0">
+      <TabPane side="RIGHT" tabClosingPolicy="UNAVAILABLE">
+         <tabs>
+            <Tab text="General">
+               <content>
+                  <ScrollPane fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" pannable="true" prefHeight="400.0">
+                     <content>
+                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" spacing="5.0">
+                           <children>
+                              <Label text="Table:" underline="true">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <HBox alignment="CENTER_LEFT" spacing="5.0">
+                                 <children>
+                                    <Label text="Name:" />
+                                    <TextField fx:id="textTableName" promptText="Table Name" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <Separator prefWidth="200.0" />
+                              <Label text="Column:" underline="true">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <FlowPane hgap="10.0" vgap="10.0">
+                                 <children>
+                                    <Label text="Name" />
+                                    <TextField fx:id="textColumnName" promptText="Column Name" />
+                                    <Label text="Datatype" />
+                                    <ComboBox fx:id="comboDatatype" editable="true" prefWidth="150.0" />
+                                    <Label text="Sql Type" />
+                                    <ComboBox fx:id="comboSqlType" prefWidth="150.0" />
+                                    <TextField fx:id="textColumnBound" prefWidth="60.0" promptText="Bound" />
+                                    <CheckBox fx:id="checkNullable" mnemonicParsing="false" selected="true" text="Nullable" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </FlowPane>
+                              <Label text="Primary Key:" underline="true">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                 <children>
+                                    <CheckBox fx:id="checkIsPrimaryKey" mnemonicParsing="false" text="Is Primary Key" />
+                                    <TextField fx:id="textPrimaryKeyName" promptText="Primary Key Name" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <Label text="Foreign Key:" underline="true">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <CheckBox fx:id="checkIncludeForeignKey" mnemonicParsing="false" text="include Foreign Key">
+                                 <VBox.margin>
+                                    <Insets left="10.0" />
+                                 </VBox.margin>
+                              </CheckBox>
+                              <HBox alignment="CENTER_LEFT" spacing="5.0">
+                                 <children>
+                                    <Label text="Name:" />
+                                    <TextField fx:id="textForeignKeyName" promptText="Foreign Key Name" />
+                                    <Label text="Ref Table" />
+                                    <TextField fx:id="textReferenceTableName" disable="true" editable="false" promptText="Reference Table Name" />
+                                    <Button mnemonicParsing="false" onAction="#onButtonReferenceTableNameAction" text="..." />
+                                    <Label text="Ref Column" />
+                                    <TextField fx:id="textReferenceColumnName" disable="true" editable="false" promptText="Reference Column Name" />
+                                    <Button mnemonicParsing="false" onAction="#onButtonReferenceColumnNameAction" text="..." />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <Button fx:id="buttonAddColumn" mnemonicParsing="false" onAction="#onButtonColumnAddAction" prefHeight="25.0" prefWidth="129.0" text="Add Column" />
+                              <ListView fx:id="listViewColumn" prefHeight="150" prefWidth="200" VBox.vgrow="ALWAYS"> 
+                                 <contextMenu>
+                                    <ContextMenu>
+                                      <items>
+                                        <MenuItem mnemonicParsing="false" onAction="#onMenuItemDelecteAction" text="Delete" />
+                                          <MenuItem mnemonicParsing="false" onAction="#onMenuItemUpAction" text="Up" />
+                                          <MenuItem mnemonicParsing="false" onAction="#onMenuItemDownAction" text="Down" />
+                                      </items>
+                                    </ContextMenu>
+                                 </contextMenu>
+                              </ListView>
+                              <Button fx:id="buttonCreateTable" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onButtonCreateTableAction" text="Create Table" />
+                           </children>
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </content>
+            </Tab>
+            <Tab text="Foreign Key">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label text="Name:" />
-                        <TextField fx:id="textTableName" promptText="Table Name" />
+                        <GridPane hgap="10.0" layoutX="242.0" layoutY="189.0" prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="394.0" minWidth="10.0" prefWidth="111.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="664.0" minWidth="10.0" prefWidth="402.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="664.0" minWidth="10.0" prefWidth="275.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                              <RowConstraints maxHeight="115.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="115.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="302.0" minHeight="10.0" prefHeight="302.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="35.0" minHeight="4.0" prefHeight="4.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Foreig Key Name" GridPane.rowIndex="1" />
+                              <TextField fx:id="textFormForeignKeyName" promptText="Foreign Key Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <children>
+                                    <VBox prefHeight="200.0" prefWidth="160.0" spacing="5.0">
+                                       <children>
+                                          <Label text="Referenced Table:" />
+                                          <TextField fx:id="textFormSearchTable" promptText="Filter for table" />
+                                          <ListView fx:id="listViewFormTable" onMouseClicked="#onListViewFormTableClicked" prefHeight="200.0" prefWidth="200.0" />
+                                          <Label text="Current chosen Table" />
+                                          <TextField fx:id="textFormCurrentChosenTable" disable="true" />
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="160.0" spacing="5.0">
+                                       <children>
+                                          <Label text="Referenced Column:" />
+                                          <TextField fx:id="textFormSearchColumn" promptText="Filter for column" />
+                                          <ListView fx:id="listViewFormColumn" onMouseClicked="#onListViewFormColumnClicked" prefHeight="200.0" prefWidth="200.0" />
+                                          <Label text="Current chosen  Column:" />
+                                          <TextField fx:id="textFormCurrentChosenColumn" disable="true" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Button fx:id="buttonFormAddForeignkey" mnemonicParsing="false" onAction="#onButtonAddForeignKeyAction" text="Add Foreign Key" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <Label text="Selected Column:" />
+                              <TextField fx:id="textFormSelectedColumn" disable="true" GridPane.columnIndex="1" />
+                           </children>
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                        </GridPane>
                      </children>
-                     <VBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <Separator prefWidth="200.0" />
-                  <Label text="Column:" underline="true">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <FlowPane hgap="10.0" vgap="10.0">
-                     <children>
-                        <Label text="Name" />
-                        <TextField fx:id="textColumnName" promptText="Column Name" />
-                        <Label text="Datatype" />
-                        <ComboBox fx:id="comboDatatype" editable="true" prefWidth="150.0" />
-                        <Label text="Sql Type" />
-                        <ComboBox fx:id="comboSqlType" prefWidth="150.0" />
-                        <CheckBox fx:id="checkNullable" mnemonicParsing="false" text="Nullable" />
-                     </children>
-                     <VBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </VBox.margin>
-                  </FlowPane>
-                  <Label text="Primary Key:" underline="true">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <HBox alignment="CENTER_LEFT" spacing="10.0">
-                     <children>
-                        <CheckBox fx:id="checkIsPrimaryKey" mnemonicParsing="false" text="Is Primary Key" />
-                        <TextField fx:id="textPrimaryKeyName" promptText="Primary Key Name" />
-                     </children>
-                     <VBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <Label text="Foreign Key:" underline="true">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <CheckBox fx:id="checkIncludeForeignKey" mnemonicParsing="false" text="include Foreign Key">
-                     <VBox.margin>
-                        <Insets left="10.0" />
-                     </VBox.margin>
-                  </CheckBox>
-                  <HBox alignment="CENTER_LEFT" spacing="5.0">
-                     <children>
-                        <Label text="Name:" />
-                        <TextField fx:id="textForeignKeyName" promptText="Foreign Key Name" />
-                        <Label text="Ref Table" />
-                        <TextField fx:id="textReferenceTableName" disable="true" editable="false" promptText="Reference Table Name" />
-                        <Button mnemonicParsing="false" onAction="#onButtonReferenceTableNameAction" text="..." />
-                        <Label text="Ref Column" />
-                        <TextField fx:id="textReferenceColumnName" disable="true" editable="false" promptText="Reference Column Name" />
-                        <Button mnemonicParsing="false" onAction="#onButtonReferenceColumnNameAction" text="..." />
-                     </children>
-                     <VBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <Button fx:id="buttonAddColumn" mnemonicParsing="false" onAction="#onButtonColumnAddAction" prefHeight="25.0" prefWidth="129.0" text="Add Column" />
-                  <ListView fx:id="listViewColumn" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                     <contextMenu>
-                        <ContextMenu>
-                          <items>
-                            <MenuItem mnemonicParsing="false" onAction="#onMenuItemDelecteAction" text="Delete" />
-                              <MenuItem mnemonicParsing="false" onAction="#onMenuItemUpAction" text="Up" />
-                              <MenuItem mnemonicParsing="false" onAction="#onMenuItemDownAction" text="Down" />
-                          </items>
-                        </ContextMenu>
-                     </contextMenu>
-                  </ListView>
-                  <Button fx:id="buttonCreateTable" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onButtonCreateTableAction" text="Create Table" />
-               </children>
-            </VBox>
-         </content>
-      </TitledPane>
+                  </AnchorPane>
+              </content>
+            </Tab>
+         </tabs>
+      </TabPane>
    </content>
 </fx:root>

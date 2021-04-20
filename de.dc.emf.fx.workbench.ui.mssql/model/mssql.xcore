@@ -44,6 +44,11 @@ class Column{
 	boolean isNullable = 'true'
 	contains PrimaryKey primaryKey
 	contains ForeignKey foreignKey
+	contains Bound bound
+}
+
+class Bound{
+	int value
 }
 
 class PrimaryKey{
@@ -57,11 +62,15 @@ class ForeignKey{
 }
 
 enum SqlType{
-	BIG_INT
 	NUMERIC
+	VARCHAR
+	DATETIME
+	DECIMAL
+	CHAR
+	NCHAR
+	BIG_INT
 	BIT
 	SMALL_INT
-	DECIMAL
 	SMALL_MONEY
 	INT
 	TINY_INT
@@ -70,14 +79,10 @@ enum SqlType{
 	REAL
 	DATE
 	DATETIME2
-	DATETIME
 	DATETIME_OFFSET
 	SMALL_DATETIME
 	TIME
-	CHAR
 	TEXT
-	VARCHAR
-	NCHAR
 	NTEXT
 	BINARY
 	IMAGE

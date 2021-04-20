@@ -167,6 +167,29 @@ public class MssqlItemProviderAdapterFactory extends MssqlAdapterFactory
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link de.dc.emf.fx.workbench.ui.mssql.Bound} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected BoundItemProvider boundItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link de.dc.emf.fx.workbench.ui.mssql.Bound}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createBoundAdapter() {
+		if (boundItemProvider == null) {
+			boundItemProvider = new BoundItemProvider(this);
+		}
+
+		return boundItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link de.dc.emf.fx.workbench.ui.mssql.PrimaryKey} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -348,6 +371,8 @@ public class MssqlItemProviderAdapterFactory extends MssqlAdapterFactory
 			tableItemProvider.dispose();
 		if (columnItemProvider != null)
 			columnItemProvider.dispose();
+		if (boundItemProvider != null)
+			boundItemProvider.dispose();
 		if (primaryKeyItemProvider != null)
 			primaryKeyItemProvider.dispose();
 		if (foreignKeyItemProvider != null)

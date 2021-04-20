@@ -17,6 +17,7 @@ import com.google.inject.Inject;
 import de.dc.emf.fx.workbench.jmetro.core.event.EventContext;
 import de.dc.emf.fx.workbench.jmetro.core.event.EventTopic;
 import de.dc.emf.fx.workbench.jmetro.core.event.IEventBroker;
+import de.dc.emf.fx.workbench.jmetro.core.model.EmfPrint;
 import de.dc.emf.fx.workbench.jmetro.ui.SimpleEmfEditor;
 import de.dc.emf.fx.workbench.ui.mssql.provider.MssqlItemProviderAdapterFactory;
 import de.dc.emf.fx.workbench.ui.mssql.service.IMssqlService;
@@ -36,8 +37,7 @@ public class MssqlEditor extends SimpleEmfEditor<MssqlManager> {
 	private Menu menuRun = new Menu("Run");
 	private IMssqlService mssqlService = new MssqlService();
 
-	@Inject
-	IEventBroker eventBroker;
+	@Inject IEventBroker eventBroker;
 
 	public MssqlEditor() {
 		createMenuItem(menu);
@@ -71,7 +71,7 @@ public class MssqlEditor extends SimpleEmfEditor<MssqlManager> {
 					try {
 						mssqlService.drop(server);
 					} catch (SQLException e1) {
-						e1.printStackTrace();
+						eventBroker.post(new EventContext<>(EventTopic.PRINT_CONSOLE, new EmfPrint(e1)));
 					}
 				});
 				menuRun.getItems().add(menuItemCreateAllTables);

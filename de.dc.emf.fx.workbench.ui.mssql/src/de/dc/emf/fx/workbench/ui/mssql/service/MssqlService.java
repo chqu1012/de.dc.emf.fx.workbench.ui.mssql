@@ -6,6 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import de.dc.emf.fx.workbench.jmetro.core.di.EmfFXPlatform;
+import de.dc.emf.fx.workbench.jmetro.core.event.EventTopic;
+import de.dc.emf.fx.workbench.jmetro.core.event.IEventBroker;
+import de.dc.emf.fx.workbench.jmetro.core.model.EmfPrint;
 import de.dc.emf.fx.workbench.ui.mssql.MssqlServer;
 import de.dc.emf.fx.workbench.ui.mssql.Table;
 import de.dc.emf.fx.workbench.ui.mssql.User;
@@ -26,6 +30,7 @@ public class MssqlService implements IMssqlService {
 		String connectionUrl = "jdbc:sqlserver://"+host+port+";databaseName="+databaseName+";user="+user+";password="+password;
 
 		System.out.print("Connecting to SQL Server ... ");
+		EmfFXPlatform.getInstance(IEventBroker.class).post(EventTopic.PRINT_CONSOLE, new EmfPrint("Connecting to SQL Server ..."));
 		connection = DriverManager.getConnection(connectionUrl);
 		System.out.println("Done.");
 	}

@@ -287,13 +287,22 @@ public interface MssqlPackage extends EPackage {
 	int COLUMN__FOREIGN_KEY = 5;
 
 	/**
+	 * The feature id for the '<em><b>Bound</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLUMN__BOUND = 6;
+
+	/**
 	 * The number of structural features of the '<em>Column</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COLUMN_FEATURE_COUNT = 6;
+	int COLUMN_FEATURE_COUNT = 7;
 
 	/**
 	 * The number of operations of the '<em>Column</em>' class.
@@ -305,6 +314,43 @@ public interface MssqlPackage extends EPackage {
 	int COLUMN_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link de.dc.emf.fx.workbench.ui.mssql.impl.BoundImpl <em>Bound</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see de.dc.emf.fx.workbench.ui.mssql.impl.BoundImpl
+	 * @see de.dc.emf.fx.workbench.ui.mssql.impl.MssqlPackageImpl#getBound()
+	 * @generated
+	 */
+	int BOUND = 4;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOUND__VALUE = 0;
+
+	/**
+	 * The number of structural features of the '<em>Bound</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOUND_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Bound</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOUND_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link de.dc.emf.fx.workbench.ui.mssql.impl.PrimaryKeyImpl <em>Primary Key</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -312,7 +358,7 @@ public interface MssqlPackage extends EPackage {
 	 * @see de.dc.emf.fx.workbench.ui.mssql.impl.MssqlPackageImpl#getPrimaryKey()
 	 * @generated
 	 */
-	int PRIMARY_KEY = 4;
+	int PRIMARY_KEY = 5;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -349,7 +395,7 @@ public interface MssqlPackage extends EPackage {
 	 * @see de.dc.emf.fx.workbench.ui.mssql.impl.MssqlPackageImpl#getForeignKey()
 	 * @generated
 	 */
-	int FOREIGN_KEY = 5;
+	int FOREIGN_KEY = 6;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -404,7 +450,7 @@ public interface MssqlPackage extends EPackage {
 	 * @see de.dc.emf.fx.workbench.ui.mssql.impl.MssqlPackageImpl#getUser()
 	 * @generated
 	 */
-	int USER = 6;
+	int USER = 7;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -459,7 +505,7 @@ public interface MssqlPackage extends EPackage {
 	 * @see de.dc.emf.fx.workbench.ui.mssql.impl.MssqlPackageImpl#getSqlType()
 	 * @generated
 	 */
-	int SQL_TYPE = 7;
+	int SQL_TYPE = 8;
 
 	/**
 	 * Returns the meta object for class '{@link de.dc.emf.fx.workbench.ui.mssql.MssqlManager <em>Manager</em>}'.
@@ -665,6 +711,38 @@ public interface MssqlPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getColumn_ForeignKey();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link de.dc.emf.fx.workbench.ui.mssql.Column#getBound <em>Bound</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Bound</em>'.
+	 * @see de.dc.emf.fx.workbench.ui.mssql.Column#getBound()
+	 * @see #getColumn()
+	 * @generated
+	 */
+	EReference getColumn_Bound();
+
+	/**
+	 * Returns the meta object for class '{@link de.dc.emf.fx.workbench.ui.mssql.Bound <em>Bound</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Bound</em>'.
+	 * @see de.dc.emf.fx.workbench.ui.mssql.Bound
+	 * @generated
+	 */
+	EClass getBound();
+
+	/**
+	 * Returns the meta object for the attribute '{@link de.dc.emf.fx.workbench.ui.mssql.Bound#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see de.dc.emf.fx.workbench.ui.mssql.Bound#getValue()
+	 * @see #getBound()
+	 * @generated
+	 */
+	EAttribute getBound_Value();
 
 	/**
 	 * Returns the meta object for class '{@link de.dc.emf.fx.workbench.ui.mssql.PrimaryKey <em>Primary Key</em>}'.
@@ -965,6 +1043,32 @@ public interface MssqlPackage extends EPackage {
 		 * @generated
 		 */
 		EReference COLUMN__FOREIGN_KEY = eINSTANCE.getColumn_ForeignKey();
+
+		/**
+		 * The meta object literal for the '<em><b>Bound</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COLUMN__BOUND = eINSTANCE.getColumn_Bound();
+
+		/**
+		 * The meta object literal for the '{@link de.dc.emf.fx.workbench.ui.mssql.impl.BoundImpl <em>Bound</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see de.dc.emf.fx.workbench.ui.mssql.impl.BoundImpl
+		 * @see de.dc.emf.fx.workbench.ui.mssql.impl.MssqlPackageImpl#getBound()
+		 * @generated
+		 */
+		EClass BOUND = eINSTANCE.getBound();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute BOUND__VALUE = eINSTANCE.getBound_Value();
 
 		/**
 		 * The meta object literal for the '{@link de.dc.emf.fx.workbench.ui.mssql.impl.PrimaryKeyImpl <em>Primary Key</em>}' class.

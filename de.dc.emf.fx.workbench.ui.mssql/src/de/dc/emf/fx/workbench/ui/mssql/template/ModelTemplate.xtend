@@ -6,9 +6,6 @@ class ModelTemplate implements IGenerator<Table>{
 	
 	override gen(Table input)'''
 	«val name = input.name.toLowerCase.toFirstUpper»
-	
-	import java.math.*;
-	
 	public class «name»{
 		
 		«FOR f : input.columns»

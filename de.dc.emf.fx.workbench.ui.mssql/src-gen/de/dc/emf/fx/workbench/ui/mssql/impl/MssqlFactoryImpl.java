@@ -64,6 +64,8 @@ public class MssqlFactoryImpl extends EFactoryImpl implements MssqlFactory {
 			return createTable();
 		case MssqlPackage.COLUMN:
 			return createColumn();
+		case MssqlPackage.BOUND:
+			return createBound();
 		case MssqlPackage.PRIMARY_KEY:
 			return createPrimaryKey();
 		case MssqlPackage.FOREIGN_KEY:
@@ -147,6 +149,17 @@ public class MssqlFactoryImpl extends EFactoryImpl implements MssqlFactory {
 	public Column createColumn() {
 		ColumnImpl column = new ColumnImpl();
 		return column;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Bound createBound() {
+		BoundImpl bound = new BoundImpl();
+		return bound;
 	}
 
 	/**

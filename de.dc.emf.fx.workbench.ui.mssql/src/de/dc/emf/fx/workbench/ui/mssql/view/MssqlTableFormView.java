@@ -5,14 +5,19 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import javax.inject.Inject;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
+import com.google.inject.Inject;
+
 import de.dc.emf.fx.workbench.jmetro.core.di.EmfFXPlatform;
+import de.dc.emf.fx.workbench.jmetro.core.event.EventContext;
+import de.dc.emf.fx.workbench.jmetro.core.event.EventTopic;
+import de.dc.emf.fx.workbench.jmetro.core.event.IEventBroker;
+import de.dc.emf.fx.workbench.jmetro.core.model.EmfPrint;
 import de.dc.emf.fx.workbench.jmetro.core.service.ISelectionService;
 import de.dc.emf.fx.workbench.jmetro.ui.EmfFxmlView;
+import de.dc.emf.fx.workbench.ui.mssql.Bound;
 import de.dc.emf.fx.workbench.ui.mssql.Column;
 import de.dc.emf.fx.workbench.ui.mssql.ForeignKey;
 import de.dc.emf.fx.workbench.ui.mssql.MssqlFactory;
@@ -22,23 +27,31 @@ import de.dc.emf.fx.workbench.ui.mssql.PrimaryKey;
 import de.dc.emf.fx.workbench.ui.mssql.SqlType;
 import de.dc.emf.fx.workbench.ui.mssql.Table;
 import de.dc.emf.fx.workbench.ui.mssql.cell.ColumnCell;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TreeItem;
+import javafx.scene.input.MouseEvent;
+import javafx.util.Callback;
 
-public class MssqlTableFormView extends EmfFxmlView {
+public class MssqlTableFormView extends EmfFxmlView implements ChangeListener<TreeItem<Object>>{
 
 	@Inject
 	ISelectionService selectionService;
+	
+	@Inject IEventBroker eventBroker;
 
 	@FXML
 	protected CheckBox checkIncludeForeignKey;
@@ -62,6 +75,9 @@ public class MssqlTableFormView extends EmfFxmlView {
 	protected TextField textPrimaryKeyName;
 
 	@FXML
+	protected TextField textColumnBound;
+
+	@FXML
 	protected ComboBox<String> comboDatatype;
 
 	@FXML
@@ -81,51 +97,173 @@ public class MssqlTableFormView extends EmfFxmlView {
 	
 	@FXML
 	protected ListView<Column> listViewColumn;
+	
+	@FXML
+	protected TextField textFormSelectedColumn;
+
+	@FXML
+	protected TextField textFormForeignKeyName;
+	
+	@FXML
+	protected TextField textFormSearchTable;
+	
+	@FXML
+	protected TextField textFormSearchColumn;
+	
+	@FXML
+	protected TextField textFormCurrentChosenTable;
+	
+	@FXML
+	protected TextField textFormCurrentChosenColumn;
+	
+	@FXML
+	protected ListView<Table> listViewFormTable;
+	
+	@FXML
+	protected ListView<Column> listViewFormColumn;
+
+	@FXML
+	protected Button buttonFormAddForeignkey;
 
 	private ObservableList<Column> columns = FXCollections.observableArrayList();
+
+	private ObservableList<Column> masterDataColumns = FXCollections.observableArrayList();
+	private FilteredList<Column> filteredColumns = new FilteredList<Column>(masterDataColumns);
+
+	private ObservableList<Table> masterDataTable = FXCollections.observableArrayList();
+	private FilteredList<Table> filteredTable = new FilteredList<>(masterDataTable);
 
 	private Table currentRefTable;
 
 	private Column currentRefColumn;
-	
+
+	private Table currentChosenTable;
+
+	private Column currentChosenColumn;
+
+	private Column selectedFormColumn;
+
 	public MssqlTableFormView() {
-		super("Table Form", "/de/dc/emf/fx/workbench/ui/mssql/TableForm.fxml");
+		super("Table Form", "/de/dc/emf/fx/workbench/ui/mssql/TableForm.fxml", "/de/dc/emf/fx/workbench/ui/mssql/icons/table.png");
 
 		EmfFXPlatform.inject(this);
+		selectionService.addListener(this);
+		
+		initTabGeneral();
+		initTabForeignKey();
+	}
 
-		comboSqlType.setItems(FXCollections.observableArrayList(SqlType.values()));
-		comboSqlType.getSelectionModel().select(SqlType.VARCHAR);
-
-		comboDatatype.setItems(FXCollections.observableArrayList(Arrays.asList("String", "Integer", "LocalDateTime", "LocalDate", "Double", "Float", "Clob", "Blob")));
-		comboDatatype.getSelectionModel().selectFirst();
-		comboDatatype.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+	private void initTabForeignKey() {
+		listViewFormColumn.setItems(filteredColumns);
+		listViewFormColumn.setCellFactory(new Callback<ListView<Column>, ListCell<Column>>() {
 			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if (newValue!=null) {
-					if (newValue.equals("String")) {
-						comboSqlType.getSelectionModel().select(SqlType.VARCHAR);
-					}else if (newValue.equals("Integer")) {
-						comboSqlType.getSelectionModel().select(SqlType.NUMERIC);
-					}else if (newValue.equals("LocalDateTime")) {
-						comboSqlType.getSelectionModel().select(SqlType.DATETIME);
-					}else if (newValue.equals("LocalDate")) {
-						comboSqlType.getSelectionModel().select(SqlType.DATE);
-					}else if (newValue.equals("Clob")) {
-						comboSqlType.getSelectionModel().select(SqlType.VARCHAR);
+			public ListCell<Column> call(ListView<Column> param) {
+				return new ListCell<Column>() {
+					@Override
+					protected void updateItem(Column item, boolean empty) {
+						super.updateItem(item, empty);
+						if (item==null || empty) {
+							setText(null);
+						}else {
+							setText(item.getName() + " : "+item.getDatatype());
+						}
 					}
-				}
+				};
+			}
+		});
+		listViewFormTable.setItems(filteredTable);		
+		listViewFormTable.setCellFactory(new Callback<ListView<Table>, ListCell<Table>>() {
+			@Override
+			public ListCell<Table> call(ListView<Table> param) {
+				return new ListCell<Table>() {
+					@Override
+					protected void updateItem(Table item, boolean empty) {
+						super.updateItem(item, empty);
+						if (item==null || empty) {
+							setText(null);
+						}else {
+							setText(item.getName());
+						}
+					}
+				};
 			}
 		});
 		
-		textPrimaryKeyName.disableProperty().bind(checkIsPrimaryKey.selectedProperty().not());
-		
-		listViewColumn.setItems(columns);
-		listViewColumn.setCellFactory(e -> new ColumnCell());
-		
-		buttonCreateTable.disableProperty().bind(textTableName.textProperty().isEmpty());
-		buttonAddColumn.disableProperty().bind(textColumnName.textProperty().isEmpty());
+		BooleanBinding buttonFormForeignKeyDIsableProperty = textFormCurrentChosenColumn.textProperty().isEmpty().or(textFormCurrentChosenTable.textProperty().isEmpty().or(textFormForeignKeyName.textProperty().isEmpty()));
+		buttonFormAddForeignkey.disableProperty().bind(buttonFormForeignKeyDIsableProperty);
 	}
 
+	private void initTabGeneral() {
+		comboSqlType.setItems(FXCollections.observableArrayList(SqlType.values()));
+		comboSqlType.getSelectionModel().select(SqlType.VARCHAR);
+		comboDatatype.setItems(FXCollections.observableArrayList(Arrays.asList("String", "Integer", "LocalDateTime", "LocalDate", "Double", "Float", "Clob", "Blob")));
+		comboDatatype.getSelectionModel().selectFirst();
+		comboDatatype.getSelectionModel().selectedItemProperty().addListener(this::onComboDatatypeChanged);
+		textPrimaryKeyName.disableProperty().bind(checkIsPrimaryKey.selectedProperty().not());
+		listViewColumn.setItems(columns);
+		listViewColumn.setCellFactory(e -> new ColumnCell());
+		buttonCreateTable.disableProperty().bind(textTableName.textProperty().isEmpty());
+		buttonAddColumn.disableProperty().bind(textColumnName.textProperty().isEmpty());
+		checkIsPrimaryKey.selectedProperty().addListener(this::onCheckIsPrimaryKeyChanged);
+	}
+
+	private void onCheckIsPrimaryKeyChanged(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+		if (newValue) {
+			textPrimaryKeyName.setText(textTableName.getText()+"_PK");
+		}
+	}
+	
+	private void onComboDatatypeChanged(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+		if (newValue!=null) {
+			if (newValue.equals("String")) {
+				comboSqlType.getSelectionModel().select(SqlType.VARCHAR);
+			}else if (newValue.equals("Integer")) {
+				comboSqlType.getSelectionModel().select(SqlType.NUMERIC);
+			}else if (newValue.equals("LocalDateTime")) {
+				comboSqlType.getSelectionModel().select(SqlType.DATETIME);
+			}else if (newValue.equals("LocalDate")) {
+				comboSqlType.getSelectionModel().select(SqlType.DATE);
+			}else if (newValue.equals("Clob")) {
+				comboSqlType.getSelectionModel().select(SqlType.VARCHAR);
+			}
+		}
+	}
+	
+	@FXML
+	protected void onListViewFormTableClicked(MouseEvent e) {
+		currentChosenTable = listViewFormTable.getSelectionModel().getSelectedItem();
+		if (currentChosenTable!=null) {
+			masterDataColumns.setAll(currentChosenTable.getColumns());
+			textFormCurrentChosenTable.setText(currentChosenTable.getName());
+		}
+	}
+	
+	@FXML
+	protected void onListViewFormColumnClicked(MouseEvent e) {
+		currentChosenColumn = listViewFormColumn.getSelectionModel().getSelectedItem();
+		if (currentChosenColumn!=null) {
+			textFormCurrentChosenColumn.setText(currentChosenColumn.getName());
+		}
+	}
+	
+	@FXML
+	protected void onButtonAddForeignKeyAction(ActionEvent e) {
+		ForeignKey fk = MssqlFactory.eINSTANCE.createForeignKey();
+		fk.setName(textFormForeignKeyName.getText());
+		fk.setColumn(currentChosenColumn);
+		fk.setTable(currentChosenTable);
+		
+		Object selection = selectionService.getTreeSelection();
+		if (selection instanceof Column) {
+			Column column = (Column) selection;
+			column.setForeignKey(fk);
+			
+			textFormForeignKeyName.setText("");
+		}else {
+			eventBroker.post(new EventContext<>(EventTopic.PRINT_CONSOLE, new EmfPrint("Column may chosen in the tree editor to add a foreign key!")));
+		}
+	}
+	
 	@FXML
 	protected void onButtonReferenceTableNameAction(ActionEvent event) {
 		Object selection = selectionService.getTreeSelection();
@@ -186,10 +324,20 @@ public class MssqlTableFormView extends EmfFxmlView {
 			fk.setColumn(currentRefColumn);
 			column.setForeignKey(fk);
 		}
+		if (textColumnBound.getText()!=null) {
+			Bound bound = MssqlFactory.eINSTANCE.createBound();
+			bound.setValue(Integer.parseInt(textColumnBound.getText()));
+			column.setBound(bound);
+		}
 		columns.add(column);
 
 		checkIsPrimaryKey.setSelected(false);
 		textColumnName.setText("");
+		textColumnBound.setText("");
+		textPrimaryKeyName.setText("");
+		textForeignKeyName.setText("");
+		checkIncludeForeignKey.setSelected(false);
+		checkIsPrimaryKey.setSelected(false);
 	}
 
 	@FXML
@@ -242,6 +390,26 @@ public class MssqlTableFormView extends EmfFxmlView {
 		columns.remove(selection);
 		columns.add(currentIndex+(1*upOrDown), selection);
 		listViewColumn.getSelectionModel().select(selection);
+	}
+
+	@Override
+	public void changed(ObservableValue<? extends TreeItem<Object>> observable, TreeItem<Object> oldValue,
+			TreeItem<Object> newValue) {
+		if (newValue!=null) {
+			Object value = newValue.getValue();
+			if (value instanceof Column) {
+				selectedFormColumn = (Column) value;
+				textFormSelectedColumn.setText(selectedFormColumn.getName());
+				EObject rootContainer = EcoreUtil.getRootContainer(selectedFormColumn);
+				if (rootContainer instanceof MssqlManager) {
+					MssqlManager manager = (MssqlManager) rootContainer;
+					masterDataTable.clear();
+					for (MssqlServer server : manager.getServers()) {
+						masterDataTable.addAll(server.getTables());
+					}
+				}
+			}
+		}
 	}
 
 }

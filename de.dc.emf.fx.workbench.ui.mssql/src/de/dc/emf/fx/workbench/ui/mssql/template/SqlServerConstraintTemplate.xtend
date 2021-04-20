@@ -12,4 +12,4 @@ class SqlServerConstraintTemplate implements IGenerator<MssqlServer>{
 	
 	override name(MssqlServer input)'''add_constraints.sql'''
 	
-} 
+}
