@@ -11,3 +11,6 @@
 /.SqlTableConstraintTemplate.java._trace
 /.SqlServerConstraintTemplate.java._trace
 /.ModelTemplate.java._trace
+/.ExtendedServiceTemplate.java._trace
+/.IMigrationServiceTemplate.java._trace
+/.MigrationServiceTemplate.java._trace

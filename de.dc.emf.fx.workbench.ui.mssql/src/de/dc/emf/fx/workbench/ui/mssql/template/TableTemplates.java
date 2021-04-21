@@ -7,7 +7,10 @@ public enum TableTemplates {
 	MODEL(new ModelTemplate(), "java"),
 	BULK_INSERT_MAPPING(new BulkInsertMappingTemplate(), "java"),
 	BULK_INSERT_MAIN(new BulkInsertMainTemplate(), "java"),
-	ADD_CONSTRAINTS(new SqlTableConstraintTemplate(), "sql")
+	ADD_CONSTRAINTS(new SqlTableConstraintTemplate(), "sql"),
+	IMIGRATION_SERVICE(new IMigrationServiceTemplate(), "java"),
+	MIGRATION_SERVICE(new MigrationServiceTemplate(), "java"),
+	EXTENDED_MIGRATION_SERIVCE(new ExtendedServiceTemplate(), "java")
 	;
 
 	IGenerator<Table> generator;

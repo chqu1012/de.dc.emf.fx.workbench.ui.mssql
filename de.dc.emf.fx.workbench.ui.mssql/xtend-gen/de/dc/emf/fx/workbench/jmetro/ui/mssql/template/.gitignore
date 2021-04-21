@@ -5,3 +5,6 @@
 /.BulkInsertMappingTemplate.java._trace
 /.ModelTemplate.java._trace
 /.TableTemplate.java._trace
+/.ExtendedServiceTemplate.java._trace
+/.IMigrationServiceTemplate.java._trace
+/.MigrationServiceTemplate.java._trace

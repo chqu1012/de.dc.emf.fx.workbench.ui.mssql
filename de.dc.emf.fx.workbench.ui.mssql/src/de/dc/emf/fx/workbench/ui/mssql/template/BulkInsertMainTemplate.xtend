@@ -48,7 +48,7 @@ class BulkInsertMainTemplate implements IGenerator<Table>{
 	            	«input.name.toLowerCase.toFirstUpper» «input.name.toLowerCase» = new «input.name.toLowerCase.toFirstUpper»();
 	            	«FOR i : 0 .. input.columns.size-1»
 	            	«val c = input.columns.get(i)»
-	            	«input.name.toLowerCase».set«c.name.toFirstUpper»(rs.get«c.datatype»(«i+1»));
+	            	«input.name.toLowerCase».set«c.name.toLowerCase.toFirstUpper»(rs.get«c.datatype»(«i+1»));
 	                «ENDFOR»
 	                result.add(«input.name.toLowerCase»);
 	            }

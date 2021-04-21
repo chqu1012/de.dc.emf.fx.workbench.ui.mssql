@@ -325,9 +325,11 @@ public class MssqlTableFormView extends EmfFxmlView implements ChangeListener<Tr
 			column.setForeignKey(fk);
 		}
 		if (textColumnBound.getText()!=null) {
-			Bound bound = MssqlFactory.eINSTANCE.createBound();
-			bound.setValue(Integer.parseInt(textColumnBound.getText()));
-			column.setBound(bound);
+			if (!textColumnBound.getText().isEmpty()) {
+				Bound bound = MssqlFactory.eINSTANCE.createBound();
+				bound.setValue(Integer.parseInt(textColumnBound.getText()));
+				column.setBound(bound);
+			}
 		}
 		columns.add(column);
 
